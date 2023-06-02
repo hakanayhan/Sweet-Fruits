@@ -19,6 +19,11 @@ public class FruitController : MonoBehaviour
         SetSprite();
     }
 
+    public FruitSettings GetFruitSettings()
+    {
+        return fruitSettings;
+    }
+
     void SetSprite()
     {
         Sprite fruitSprite = fruitSettings.sprite;
@@ -28,6 +33,5 @@ public class FruitController : MonoBehaviour
     private void OnDestroy()
     {
         FruitsController.Instance.fruits.Remove(gameObject);
-        FruitsController.Instance.spawnOrder.Add(currentLine);
     }
 }

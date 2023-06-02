@@ -15,6 +15,10 @@ public class FruitsController : MonoBehaviour
     int i = 0;
     float nextSpawnTime;
 
+    public bool onSpin = false;
+    public bool onGame = true;
+    [SerializeField] GameObject bottomObject;
+
     void Awake()
     {
         if (Instance != null)
@@ -24,6 +28,7 @@ public class FruitsController : MonoBehaviour
         }
         Instance = this;
     }
+
     void Update()
     {
         if (fruitAmount < maxFruitAmount)
@@ -41,6 +46,41 @@ public class FruitsController : MonoBehaviour
             spawnOrder.RemoveAt(0);
             SetDelayTime();
         }
+
+        if (onSpin && fruits.Count == 0)
+        {
+            fruitAmount = 0;
+            onSpin = false;
+            bottomObject.SetActive(true);
+        }
+
+        if (!AnyFruitMoving() && fruitAmount == maxFruitAmount)
+        {
+            CheckMatchingFruits();
+        }
+    }
+
+    bool AnyFruitMoving()
+    {
+        foreach (var fruit in fruits)
+        {
+            Rigidbody2D rb = fruit.GetComponent<Rigidbody2D>();
+            if (rb != null && rb.velocity.magnitude > 0f)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void Spin()
+    {
+        if (!onSpin && !onGame && !AnyFruitMoving())
+        {
+            bottomObject.SetActive(false);
+            onSpin = true;
+            onGame = true;
+        }
     }
 
     public void SpawnNewFruit(int a)
@@ -55,5 +95,69 @@ public class FruitsController : MonoBehaviour
     void SetDelayTime()
     {
         nextSpawnTime = Time.time + 0.07f;
+    }
+
+    void CheckMatchingFruits()
+    {
+        Dictionary<FruitSettings, int> fruitCount = new Dictionary<FruitSettings, int>();
+
+        foreach (GameObject fruit in fruits)
+        {
+            FruitController fruitController = fruit.GetComponent<FruitController>();
+            if (fruitController != null)
+            {
+                FruitSettings fruitSetting = fruitController.GetFruitSettings();
+                if (!fruitCount.ContainsKey(fruitSetting))
+                {
+                    fruitCount[fruitSetting] = 1;
+                }
+                else
+                {
+                    fruitCount[fruitSetting]++;
+                }
+            }
+        }
+
+        bool hasMatchingFruits = false;
+
+        foreach (KeyValuePair<FruitSettings, int> pair in fruitCount)
+        {
+            if (pair.Value >= 8)
+            {
+                List<GameObject> matchingFruits = GetMatchingFruits(pair.Key);
+                ExplodeMatchingFruits(matchingFruits);
+                hasMatchingFruits = true;
+            }
+        }
+        if (!hasMatchingFruits && fruits.Count == maxFruitAmount)
+        {
+            onGame = false;
+        }
+    }
+
+    List<GameObject> GetMatchingFruits(FruitSettings fruitSetting)
+    {
+        List<GameObject> matchingFruits = new List<GameObject>();
+
+        foreach (GameObject fruit in fruits)
+        {
+            FruitController fruitController = fruit.GetComponent<FruitController>();
+            if (fruitController != null && fruitController.GetFruitSettings() == fruitSetting)
+            {
+                matchingFruits.Add(fruit);
+            }
+        }
+
+        return matchingFruits;
+    }
+
+    void ExplodeMatchingFruits(List<GameObject> matchingFruits)
+    {
+        foreach (GameObject fruit in matchingFruits)
+        {
+            spawnOrder.Add(fruit.GetComponent<FruitController>().currentLine);
+            Destroy(fruit);
+            fruits.Remove(fruit);
+        }
     }
 }
