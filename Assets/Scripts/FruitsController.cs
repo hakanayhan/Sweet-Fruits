@@ -76,16 +76,29 @@ public class FruitsController : MonoBehaviour
             line.spawnOrder.Clear();
             for(int a = 0; a < 6; a++)
             {
-                GenerateSpawnOrder(line);
+                if(a == 0 && UnityEngine.Random.Range(0, 2) == 1)
+                {
+                    GenerateSpawnOrder(line, 1);
+                }
+                else
+                {
+                    GenerateSpawnOrder(line);
+                }
+                
             }
         }
     }
 
-    void GenerateSpawnOrder(Lines line)
+    void GenerateSpawnOrder(Lines line, int howMany = 2)
     {
         FruitSettings r = GetRandomFruitBySpawnRate();
-        line.spawnOrder.Add(r);
-        line.spawnOrder.Add(r);
+        if(r.bonus)
+            howMany = 1;
+
+        for (int a = 0; a < howMany; a++)
+        {
+            line.spawnOrder.Add(r);
+        }
     }
 
     bool AnyFruitMoving()

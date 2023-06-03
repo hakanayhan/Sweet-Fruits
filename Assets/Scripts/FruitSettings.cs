@@ -7,4 +7,5 @@ public class FruitSettings : ScriptableObject
 {
     public Sprite sprite;
     public float spawnRate;
+    public bool bonus;
 }
