@@ -609,12 +609,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a50796abb2c544a42b1f3ba75a2ebcc3, type: 2}
   - {fileID: 11400000, guid: 8b02e5d94ee4a1b409158cf0efec4702, type: 2}
   lines:
-  - {fileID: 1501481810}
-  - {fileID: 1791221441}
-  - {fileID: 1634116681}
-  - {fileID: 43460722}
-  - {fileID: 1895333584}
-  - {fileID: 1726851181}
+  - lineTransform: {fileID: 1501481810}
+    spawnOrder: []
+  - lineTransform: {fileID: 1791221441}
+    spawnOrder: []
+  - lineTransform: {fileID: 1634116681}
+    spawnOrder: []
+  - lineTransform: {fileID: 43460722}
+    spawnOrder: []
+  - lineTransform: {fileID: 1895333584}
+    spawnOrder: []
+  - lineTransform: {fileID: 1726851181}
+    spawnOrder: []
   prefab: {fileID: 6144570472924462577, guid: 858ccfa7841a4d646a34cec8b81716f8, type: 3}
   spawnOrder: 
   fruitAmount: 0

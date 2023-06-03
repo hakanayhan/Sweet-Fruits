@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class FruitsController : MonoBehaviour
     public static FruitsController Instance;
     public List<GameObject> fruits = new List<GameObject>();
     public List<FruitSettings> fruitSettings = new List<FruitSettings>();
-    public List<Transform> lines = new List<Transform>();
+    public List<Lines> lines;
     public GameObject prefab;
     public List<int> spawnOrder = new List<int>();
     public int fruitAmount = 0;
@@ -34,6 +35,7 @@ public class FruitsController : MonoBehaviour
     private void Start()
     {
         CalculateTotalSpawnRate();
+        GenerateSpawnOrders();
     }
 
     void Update()
@@ -67,6 +69,25 @@ public class FruitsController : MonoBehaviour
         }
     }
 
+    void GenerateSpawnOrders()
+    {
+        foreach(Lines line in lines)
+        {
+            line.spawnOrder.Clear();
+            for(int a = 0; a < 6; a++)
+            {
+                GenerateSpawnOrder(line);
+            }
+        }
+    }
+
+    void GenerateSpawnOrder(Lines line)
+    {
+        FruitSettings r = GetRandomFruitBySpawnRate();
+        line.spawnOrder.Add(r);
+        line.spawnOrder.Add(r);
+    }
+
     bool AnyFruitMoving()
     {
         foreach (var fruit in fruits)
@@ -84,6 +105,8 @@ public class FruitsController : MonoBehaviour
     {
         if (!onSpin && !onGame && !AnyFruitMoving())
         {
+            spawnOrder.Clear();
+            GenerateSpawnOrders();
             bottomObject.SetActive(false);
             onSpin = true;
             onGame = true;
@@ -92,10 +115,11 @@ public class FruitsController : MonoBehaviour
 
     public void SpawnNewFruit(int a)
     {
-        GameObject g = Instantiate(prefab, lines[a]);
+        GameObject g = Instantiate(prefab, lines[a].lineTransform);
         fruits.Add(g);
         g.GetComponent<FruitController>().currentLine = a;
-        g.GetComponent<FruitController>().SetFruitSettings(GetRandomFruitBySpawnRate());
+        g.GetComponent<FruitController>().SetFruitSettings(lines[a].spawnOrder[0]);
+        lines[a].spawnOrder.RemoveAt(0);
     }
 
     void SetDelayTime()
@@ -106,7 +130,7 @@ public class FruitsController : MonoBehaviour
     private FruitSettings GetRandomFruitBySpawnRate()
     {
 
-        float randomValue = Random.Range(0, totalSpawnRate);
+        float randomValue = UnityEngine.Random.Range(0, totalSpawnRate);
         float cumulativeSpawnRate = 0;
 
         foreach (FruitSettings fruitSetting in fruitSettings)
@@ -117,8 +141,6 @@ public class FruitsController : MonoBehaviour
                 return fruitSetting;
             }
         }
-
-        // Eðer bir eþleþme bulunamazsa, varsayýlan olarak ilk meyve ayarýný döndür
         return fruitSettings[0];
     }
 
@@ -188,9 +210,17 @@ public class FruitsController : MonoBehaviour
     {
         foreach (GameObject fruit in matchingFruits)
         {
-            spawnOrder.Add(fruit.GetComponent<FruitController>().currentLine);
+            int currentLine = fruit.GetComponent<FruitController>().currentLine;
+            spawnOrder.Add(currentLine);
+            GenerateSpawnOrder(lines[currentLine]);
             Destroy(fruit);
             fruits.Remove(fruit);
         }
     }
+}
+
+[Serializable] public class Lines
+{
+    public Transform lineTransform;
+    [HideInInspector] public List<FruitSettings> spawnOrder = new List<FruitSettings>();
 }
