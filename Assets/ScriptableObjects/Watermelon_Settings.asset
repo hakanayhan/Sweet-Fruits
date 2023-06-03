@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ab5f1762134f44f8c02899010a9f17, type: 3}
   m_Name: Watermelon_Settings
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 1, b: 0, a: 1}
   sprite: {fileID: 21300000, guid: 6ce2d8ae70a6e2247b089be607437c25, type: 3}
