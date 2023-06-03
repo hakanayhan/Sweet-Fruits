@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: PurpleSweet_Settings
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 7ca52b8b5c870a5428b0d2e2191ba42d, type: 3}
+  spawnRate: 7

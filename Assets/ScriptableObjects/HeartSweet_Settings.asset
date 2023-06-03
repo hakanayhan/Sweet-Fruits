@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: HeartSweet_Settings
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: cb53fc509738af1408ee82b99a726ace, type: 3}
+  spawnRate: 5

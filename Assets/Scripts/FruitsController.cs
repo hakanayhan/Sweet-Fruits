@@ -19,6 +19,8 @@ public class FruitsController : MonoBehaviour
     public bool onGame = true;
     [SerializeField] GameObject bottomObject;
 
+    float totalSpawnRate = 0;
+
     void Awake()
     {
         if (Instance != null)
@@ -27,6 +29,11 @@ public class FruitsController : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+
+    private void Start()
+    {
+        CalculateTotalSpawnRate();
     }
 
     void Update()
@@ -88,13 +95,39 @@ public class FruitsController : MonoBehaviour
         GameObject g = Instantiate(prefab, lines[a]);
         fruits.Add(g);
         g.GetComponent<FruitController>().currentLine = a;
-        int r = Random.Range(0, fruitSettings.Count);
-        g.GetComponent<FruitController>().SetFruitSettings(fruitSettings[r]);
+        g.GetComponent<FruitController>().SetFruitSettings(GetRandomFruitBySpawnRate());
     }
 
     void SetDelayTime()
     {
         nextSpawnTime = Time.time + 0.07f;
+    }
+
+    private FruitSettings GetRandomFruitBySpawnRate()
+    {
+
+        float randomValue = Random.Range(0, totalSpawnRate);
+        float cumulativeSpawnRate = 0;
+
+        foreach (FruitSettings fruitSetting in fruitSettings)
+        {
+            cumulativeSpawnRate += fruitSetting.spawnRate;
+            if (randomValue < cumulativeSpawnRate)
+            {
+                return fruitSetting;
+            }
+        }
+
+        // Eðer bir eþleþme bulunamazsa, varsayýlan olarak ilk meyve ayarýný döndür
+        return fruitSettings[0];
+    }
+
+    private void CalculateTotalSpawnRate()
+    {
+        foreach (FruitSettings fruitSetting in fruitSettings)
+        {
+            totalSpawnRate += fruitSetting.spawnRate;
+        }
     }
 
     void CheckMatchingFruits()

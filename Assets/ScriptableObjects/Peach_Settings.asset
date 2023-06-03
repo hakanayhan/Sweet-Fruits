@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Peach_Settings
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: fae4c8ed5a4792a4b88f603e68b76dd1, type: 3}
+  spawnRate: 12

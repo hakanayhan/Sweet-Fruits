@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Banana_Settings
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: b23e07d988fffcc45bc170a276fbfad6, type: 3}
+  spawnRate: 20

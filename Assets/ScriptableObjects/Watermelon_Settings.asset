@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Watermelon_Settings
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 6ce2d8ae70a6e2247b089be607437c25, type: 3}
+  spawnRate: 14

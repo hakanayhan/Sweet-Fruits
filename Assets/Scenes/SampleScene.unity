@@ -598,14 +598,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fruits: []
   fruitSettings:
-  - {fileID: 11400000, guid: add6acc9e0818354bb1bdfa8896b7bfa, type: 2}
   - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
   - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-  - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
   - {fileID: 11400000, guid: 2eac5c9d104d54c4d9260d2d0ff1906e, type: 2}
-  - {fileID: 11400000, guid: 4c60a4ee0355b604d877314e9124e133, type: 2}
-  - {fileID: 11400000, guid: 96751effd3fedaf429bf69afa39391a5, type: 2}
+  - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
+  - {fileID: 11400000, guid: add6acc9e0818354bb1bdfa8896b7bfa, type: 2}
   - {fileID: 11400000, guid: 2ce306eb3ba476246af530201947727e, type: 2}
+  - {fileID: 11400000, guid: 96751effd3fedaf429bf69afa39391a5, type: 2}
+  - {fileID: 11400000, guid: 4c60a4ee0355b604d877314e9124e133, type: 2}
   - {fileID: 11400000, guid: a50796abb2c544a42b1f3ba75a2ebcc3, type: 2}
   - {fileID: 11400000, guid: 8b02e5d94ee4a1b409158cf0efec4702, type: 2}
   lines:

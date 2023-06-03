@@ -6,4 +6,5 @@ using UnityEngine;
 public class FruitSettings : ScriptableObject
 {
     public Sprite sprite;
+    public float spawnRate;
 }
