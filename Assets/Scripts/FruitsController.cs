@@ -68,7 +68,7 @@ public class FruitsController : MonoBehaviour
             bottomObject.SetActive(true);
         }
 
-        if (!AnyFruitMoving() && fruitAmount == maxFruitAmount)
+        if (!AnyFruitMoving() &&  fruits.Count == maxFruitAmount && spawnOrder.Count == 0 && !onSpin)
             CheckMatchingFruits();
     }
 
@@ -211,7 +211,6 @@ public class FruitsController : MonoBehaviour
     List<GameObject> GetMatchingFruits(FruitSettings fruitSetting)
     {
         List<GameObject> matchingFruits = new List<GameObject>();
-
         foreach (GameObject fruit in fruits)
         {
             FruitController fruitController = fruit.GetComponent<FruitController>();
