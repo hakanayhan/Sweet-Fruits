@@ -8,6 +8,11 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     public TextMeshProUGUI creditText;
     public TextMeshProUGUI betText;
+    public TextMeshProUGUI sessionWinText;
+
+    public GameObject sessionWinGameObject;
+    public GameObject spinToWinGameObject;
+    public GameObject goodLuckGameObject;
     void Awake()
     {
         if (Instance != null)
@@ -26,5 +31,26 @@ public class UIManager : MonoBehaviour
     public void SetBetText(string text)
     {
         betText.text = text;
+    }
+    public void SetSessionWinText(string text)
+    {
+        goodLuckGameObject.SetActive(false);
+        spinToWinGameObject.SetActive(false);
+        sessionWinGameObject.SetActive(true);
+        sessionWinText.text = text;
+    }
+
+    public void ActivateSpinToWinText()
+    {
+        sessionWinGameObject.SetActive(false);
+        goodLuckGameObject.SetActive(false);
+        spinToWinGameObject.SetActive(true);
+    }
+
+    public void ActivateGoodLuckText()
+    {
+        sessionWinGameObject.SetActive(false);
+        spinToWinGameObject.SetActive(false);
+        goodLuckGameObject.SetActive(true);
     }
 }

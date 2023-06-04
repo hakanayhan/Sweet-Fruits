@@ -25,7 +25,18 @@ public class FruitsController : MonoBehaviour
     private float _totalSpawnRate = 0;
 
     public double bet;
-    public double sessionPayment;
+
+    private double _sessionPayment;
+    public double sessionPayment
+    {
+        get { return _sessionPayment; }
+        set
+        {
+            _sessionPayment = value;
+            if(sessionPayment != 0)
+                UIManager.Instance.SetSessionWinText(sessionPayment.ToString("#,0.00") + " " + Wallet.Instance.currency);
+        }
+    }
 
     void Awake()
     {
@@ -133,6 +144,7 @@ public class FruitsController : MonoBehaviour
                 bottomObject.SetActive(false);
                 onSpin = true;
                 onGame = true;
+                UIManager.Instance.ActivateGoodLuckText();
             }
         }
     }
@@ -210,7 +222,7 @@ public class FruitsController : MonoBehaviour
                 hasMatchingFruits = true;
             }
         }
-        if (!hasMatchingFruits && fruits.Count == maxFruitAmount)
+        if (!hasMatchingFruits && fruits.Count == maxFruitAmount && onGame)
         {
             FinishSession();
         }
@@ -266,6 +278,9 @@ public class FruitsController : MonoBehaviour
     {
         onGame = false;
         Wallet.Instance.moneyAmount += sessionPayment;
+        if(sessionPayment == 0)
+            UIManager.Instance.ActivateSpinToWinText();
+
         sessionPayment = 0;
     }
 }
