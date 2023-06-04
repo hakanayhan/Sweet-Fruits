@@ -24,8 +24,8 @@ public class FruitsController : MonoBehaviour
     private float _spawnOffset = 0f;
     private float _totalSpawnRate = 0;
 
-    public float bet = 1f;
-    public float sessionPayment = 0f;
+    public double bet;
+    public double sessionPayment;
 
     void Awake()
     {
@@ -125,12 +125,15 @@ public class FruitsController : MonoBehaviour
     {
         if (!onSpin && !onGame && !AnyFruitMoving())
         {
-            spawnOrder.Clear();
-            GenerateSpawnOrders();
-            bottomObject.SetActive(false);
-            onSpin = true;
-            onGame = true;
-            sessionPayment = 0f;
+            bet = Wallet.Instance.bet;
+            if (Wallet.Instance.TryRemoveMoney(bet))
+            {
+                spawnOrder.Clear();
+                GenerateSpawnOrders();
+                bottomObject.SetActive(false);
+                onSpin = true;
+                onGame = true;
+            }
         }
     }
 
@@ -209,7 +212,7 @@ public class FruitsController : MonoBehaviour
         }
         if (!hasMatchingFruits && fruits.Count == maxFruitAmount)
         {
-            onGame = false;
+            FinishSession();
         }
     }
 
@@ -257,6 +260,13 @@ public class FruitsController : MonoBehaviour
             GenerateSpawnOrder(lines[currentLine]);
             Destroy(fruit);
         }
+    }
+
+    void FinishSession()
+    {
+        onGame = false;
+        Wallet.Instance.moneyAmount += sessionPayment;
+        sessionPayment = 0;
     }
 }
 

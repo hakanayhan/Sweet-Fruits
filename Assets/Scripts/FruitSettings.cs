@@ -8,7 +8,7 @@ public class FruitSettings : ScriptableObject
     public Sprite sprite;
     public float spawnRate;
     public bool bonus;
-    public float eightNinePaymentMultiplier;
-    public float tenElevenPaymentMultiplier;
-    public float twelveAndAbovePaymentMultiplier;
+    public double eightNinePaymentMultiplier;
+    public double tenElevenPaymentMultiplier;
+    public double twelveAndAbovePaymentMultiplier;
 }
