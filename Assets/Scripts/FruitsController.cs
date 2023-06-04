@@ -24,6 +24,9 @@ public class FruitsController : MonoBehaviour
     private float _spawnOffset = 0f;
     private float _totalSpawnRate = 0;
 
+    public float bet = 1f;
+    public float sessionPayment = 0f;
+
     void Awake()
     {
         if (Instance != null)
@@ -127,6 +130,7 @@ public class FruitsController : MonoBehaviour
             bottomObject.SetActive(false);
             onSpin = true;
             onGame = true;
+            sessionPayment = 0f;
         }
     }
 
@@ -199,6 +203,7 @@ public class FruitsController : MonoBehaviour
             {
                 List<GameObject> matchingFruits = GetMatchingFruits(pair.Key);
                 ExplodeMatchingFruits(matchingFruits);
+                PayMatchingFruits(pair.Key, pair.Value);
                 hasMatchingFruits = true;
             }
         }
@@ -221,6 +226,26 @@ public class FruitsController : MonoBehaviour
         }
 
         return matchingFruits;
+    }
+
+    void PayMatchingFruits(FruitSettings fruit, int amount)
+    {
+        if(amount == 8 || amount == 9)
+        {
+            sessionPayment += bet * fruit.eightNinePaymentMultiplier;
+        }
+        else if (amount == 10 || amount == 11)
+        {
+            sessionPayment += bet * fruit.tenElevenPaymentMultiplier;
+        }
+        else if (amount >= 12)
+        {
+            sessionPayment += bet * fruit.twelveAndAbovePaymentMultiplier;
+        }
+        else
+        {
+            Debug.Log("payment error");
+        }
     }
 
     void ExplodeMatchingFruits(List<GameObject> matchingFruits)

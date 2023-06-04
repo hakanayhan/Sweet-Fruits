@@ -628,6 +628,8 @@ MonoBehaviour:
   onSpin: 0
   onGame: 1
   bottomObject: {fileID: 1939464908}
+  bet: 10
+  sessionPayment: 0
 --- !u!1 &1407305163
 GameObject:
   m_ObjectHideFlags: 0
