@@ -26,6 +26,9 @@ public class FruitsController : MonoBehaviour
 
     public double bet;
 
+    public bool autoSpin;
+    public int autoSpinAmount;
+
     private double _sessionPayment;
     public double sessionPayment
     {
@@ -145,6 +148,10 @@ public class FruitsController : MonoBehaviour
                 onSpin = true;
                 onGame = true;
                 UIManager.Instance.ActivateGoodLuckText();
+            }
+            else if (autoSpin)
+            {
+                AutoplayWindow.Instance.OpenWindow();
             }
         }
     }
@@ -282,6 +289,31 @@ public class FruitsController : MonoBehaviour
             UIManager.Instance.ActivateSpinToWinText();
 
         sessionPayment = 0;
+
+        if (autoSpin && autoSpinAmount == 0)
+        {
+            AutoplayWindow.Instance.OpenWindow();
+        }
+            
+
+        if (autoSpin)
+        {
+            autoSpinAmount--;
+            UIManager.Instance.autoplayText.text = autoSpinAmount + " LEFT";
+            Spin();
+        }
+    }
+
+    public void ActivateAutoSpin(int amount)
+    {
+        autoSpin = true;
+        autoSpinAmount = amount;
+        if (!onGame)
+        {
+            autoSpinAmount--;
+            UIManager.Instance.autoplayText.text = autoSpinAmount + " LEFT";
+            Spin();
+        }
     }
 }
 

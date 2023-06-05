@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour
     public GameObject sessionWinGameObject;
     public GameObject spinToWinGameObject;
     public GameObject goodLuckGameObject;
+
+    public TextMeshProUGUI autoplayText;
     void Awake()
     {
         if (Instance != null)
