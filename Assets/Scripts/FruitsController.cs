@@ -29,15 +29,33 @@ public class FruitsController : MonoBehaviour
     public bool autoSpin;
     public int autoSpinAmount;
 
+    public bool activateBonusGame;
+    public bool bonusGame;
+    public int bonusSpinCount;
+    public double bonusPayment;
+
     private double _sessionPayment;
     public double sessionPayment
     {
         get { return _sessionPayment; }
         set
         {
+            if (bonusGame && value != 0)
+                bonusPayment += value - _sessionPayment;
             _sessionPayment = value;
             if(sessionPayment != 0)
-                UIManager.Instance.SetSessionWinText(sessionPayment.ToString("#,0.00") + " " + Wallet.Instance.currency);
+            {
+                if (bonusGame)
+                {
+                    UIManager.Instance.SetSessionWinText(bonusPayment.ToString("#,0.00") + " " + Wallet.Instance.currency);
+                }
+                else
+                {
+                    UIManager.Instance.SetSessionWinText(sessionPayment.ToString("#,0.00") + " " + Wallet.Instance.currency);
+                }
+                
+            }
+                
         }
     }
 
@@ -137,7 +155,7 @@ public class FruitsController : MonoBehaviour
 
     public void Spin()
     {
-        if (!onSpin && !onGame && !AnyFruitMoving())
+        if (!onSpin && !onGame && !AnyFruitMoving() && !bonusGame && !activateBonusGame)
         {
             bet = Wallet.Instance.bet;
             if (Wallet.Instance.TryRemoveMoney(bet))
@@ -154,6 +172,17 @@ public class FruitsController : MonoBehaviour
                 AutoplayWindow.Instance.OpenWindow();
             }
         }
+    }
+
+    public void BonusSpin()
+    {
+        spawnOrder.Clear();
+        GenerateSpawnOrders();
+        bottomObject.SetActive(false);
+        bonusSpinCount--;
+        UIManager.Instance.SetBonusLeftText("FREE SPINS LEFT " + bonusSpinCount);
+        onSpin = true;
+        onGame = true;
     }
 
     public void SpawnNewFruit(int a)
@@ -179,7 +208,8 @@ public class FruitsController : MonoBehaviour
 
         foreach (FruitSettings fruitSetting in fruitSettings)
         {
-            cumulativeSpawnRate += fruitSetting.spawnRate;
+            cumulativeSpawnRate += (bonusGame) ? fruitSetting.bonusSpawnRate : fruitSetting.spawnRate;
+            
             if (randomValue < cumulativeSpawnRate)
             {
                 return fruitSetting;
@@ -221,6 +251,10 @@ public class FruitsController : MonoBehaviour
 
         foreach (KeyValuePair<FruitSettings, int> pair in fruitCount)
         {
+            if(onGame && !activateBonusGame && !bonusGame && pair.Key.name == fruitSettings[9].name && pair.Value >= 4) // fruitSettings[9] = Bonus Sweet
+            {
+                activateBonusGame = true;
+            }
             if (pair.Value >= 8)
             {
                 List<GameObject> matchingFruits = GetMatchingFruits(pair.Key);
@@ -231,7 +265,15 @@ public class FruitsController : MonoBehaviour
         }
         if (!hasMatchingFruits && fruits.Count == maxFruitAmount && onGame)
         {
-            FinishSession();
+            if (bonusGame)
+            {
+                FinishBonusSession();
+            }
+            else
+            {
+                FinishSession();
+            }
+            
         }
     }
 
@@ -281,27 +323,63 @@ public class FruitsController : MonoBehaviour
         }
     }
 
+    public void StartBonusGame()
+    {
+        if (activateBonusGame)
+        {
+            activateBonusGame = false;
+            bonusGame = true;
+            bonusSpinCount = 10;
+            BonusSpin();
+        }
+        
+    }
+
     void FinishSession()
     {
         onGame = false;
-        Wallet.Instance.moneyAmount += sessionPayment;
+
+        if(!activateBonusGame && !bonusGame)
+            Wallet.Instance.moneyAmount += sessionPayment;
+
         if(sessionPayment == 0)
             UIManager.Instance.ActivateSpinToWinText();
 
-        sessionPayment = 0;
-
-        if (autoSpin && autoSpinAmount == 0)
+        if (!activateBonusGame && autoSpin && autoSpinAmount == 0)
         {
             AutoplayWindow.Instance.OpenWindow();
         }
-            
 
-        if (autoSpin)
+        if (!activateBonusGame && autoSpin)
         {
             autoSpinAmount--;
             UIManager.Instance.autoplayText.text = autoSpinAmount + " LEFT";
             Spin();
         }
+
+        if (activateBonusGame)
+        {
+            UIManager.Instance.OpenBonusPopup();
+            bonusPayment = sessionPayment;
+        }
+        sessionPayment = 0;
+    }
+
+    void FinishBonusSession()
+    {
+        onGame = false;
+        sessionPayment = 0;
+
+        if (bonusSpinCount == 0)
+        {
+            bonusGame = false;
+            UIManager.Instance.CloseBonusLeftText();
+            Wallet.Instance.moneyAmount += bonusPayment;
+            bonusPayment = 0;
+        }
+
+        if (bonusGame)
+            BonusSpin();
     }
 
     public void ActivateAutoSpin(int amount)

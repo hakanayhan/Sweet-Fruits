@@ -13,8 +13,13 @@ public class UIManager : MonoBehaviour
     public GameObject sessionWinGameObject;
     public GameObject spinToWinGameObject;
     public GameObject goodLuckGameObject;
+    public GameObject bonusLeftGameObject;
 
     public TextMeshProUGUI autoplayText;
+    public TextMeshProUGUI bonusLeftText;
+
+    public GameObject bonusPopup;
+
     void Awake()
     {
         if (Instance != null)
@@ -23,6 +28,17 @@ public class UIManager : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+
+    public void OpenBonusPopup()
+    {
+        bonusPopup.SetActive(true);
+    }
+
+    public void StartBonus()
+    {
+        bonusPopup.SetActive(false);
+        FruitsController.Instance.StartBonusGame();
     }
 
     public void SetCreditText(string text)
@@ -34,6 +50,17 @@ public class UIManager : MonoBehaviour
     {
         betText.text = text;
     }
+    public void SetBonusLeftText(string text)
+    {
+        bonusLeftGameObject.SetActive(true);
+        bonusLeftText.text = text;
+    }
+
+    public void CloseBonusLeftText()
+    {
+        bonusLeftGameObject.SetActive(false);
+    }
+
     public void SetSessionWinText(string text)
     {
         goodLuckGameObject.SetActive(false);
