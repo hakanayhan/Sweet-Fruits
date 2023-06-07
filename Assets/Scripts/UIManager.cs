@@ -18,6 +18,9 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI autoplayText;
     public TextMeshProUGUI bonusLeftText;
 
+    public GameObject tumbleGameObject;
+    public TextMeshProUGUI tumbleText;
+
     public GameObject bonusPopup;
 
     void Awake()
@@ -81,5 +84,11 @@ public class UIManager : MonoBehaviour
         sessionWinGameObject.SetActive(false);
         spinToWinGameObject.SetActive(false);
         goodLuckGameObject.SetActive(true);
+    }
+
+    public void SetTumbleText(string text)
+    {
+        tumbleGameObject.SetActive(true);
+        tumbleText.text = text;
     }
 }

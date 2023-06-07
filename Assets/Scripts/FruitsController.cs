@@ -33,6 +33,7 @@ public class FruitsController : MonoBehaviour
     public bool bonusGame;
     public int bonusSpinCount;
     public double bonusPayment;
+    public List<int> multiplierList = new List<int>();
 
     private double _sessionPayment;
     public double sessionPayment
@@ -47,11 +48,12 @@ public class FruitsController : MonoBehaviour
             {
                 if (bonusGame)
                 {
-                    UIManager.Instance.SetSessionWinText(bonusPayment.ToString("#,0.00") + " " + Wallet.Instance.currency);
+                    UIManager.Instance.SetTumbleText(Wallet.Instance.currency + sessionPayment.ToString("#,0.00"));
+                    UIManager.Instance.SetSessionWinText(Wallet.Instance.currency + bonusPayment.ToString("#,0.00"));
                 }
                 else
                 {
-                    UIManager.Instance.SetSessionWinText(sessionPayment.ToString("#,0.00") + " " + Wallet.Instance.currency);
+                    UIManager.Instance.SetSessionWinText(Wallet.Instance.currency + sessionPayment.ToString("#,0.00"));
                 }
                 
             }
@@ -131,7 +133,7 @@ public class FruitsController : MonoBehaviour
     {
         FruitSettings r = GetRandomFruitBySpawnRate();
         int c = line.spawnOrder.Count;
-        if (r.bonus || c > 0 && r.name == line.spawnOrder[c - 1].name)
+        if (r.bonus || r.name == fruitSettings[10].name || c > 0 && r.name == line.spawnOrder[c - 1].name)
             howMany = 1;
 
         for (int a = 0; a < howMany; a++)
@@ -160,6 +162,7 @@ public class FruitsController : MonoBehaviour
             bet = Wallet.Instance.bet;
             if (Wallet.Instance.TryRemoveMoney(bet))
             {
+                CalculateTotalSpawnRate();
                 spawnOrder.Clear();
                 GenerateSpawnOrders();
                 bottomObject.SetActive(false);
@@ -176,6 +179,9 @@ public class FruitsController : MonoBehaviour
 
     public void BonusSpin()
     {
+        sessionPayment = 0;
+        UIManager.Instance.tumbleGameObject.SetActive(false);
+        CalculateTotalSpawnRate();
         spawnOrder.Clear();
         GenerateSpawnOrders();
         bottomObject.SetActive(false);
@@ -187,12 +193,16 @@ public class FruitsController : MonoBehaviour
 
     public void SpawnNewFruit(int a)
     {
+        FruitSettings settings = lines[a].spawnOrder[0];
         GameObject g = Instantiate(prefab, lines[a].lineTransform);
         g.transform.position += new Vector3(0f, _spawnOffset, 0f);
         g.GetComponent<FruitController>().currentLine = a;
-        g.GetComponent<FruitController>().SetFruitSettings(lines[a].spawnOrder[0]);
+        g.GetComponent<FruitController>().SetFruitSettings(settings);
         fruits.Add(g);
         lines[a].spawnOrder.RemoveAt(0);
+
+        if (settings.name == fruitSettings[10].name)
+            g.GetComponent<FruitController>().SetMultiplier();
     }
 
     void SetDelayTime()
@@ -220,9 +230,10 @@ public class FruitsController : MonoBehaviour
 
     private void CalculateTotalSpawnRate()
     {
+        _totalSpawnRate = 0;
         foreach (FruitSettings fruitSetting in fruitSettings)
         {
-            _totalSpawnRate += fruitSetting.spawnRate;
+            _totalSpawnRate += (bonusGame) ? fruitSetting.bonusSpawnRate : fruitSetting.spawnRate;
         }
     }
 
@@ -368,7 +379,29 @@ public class FruitsController : MonoBehaviour
     void FinishBonusSession()
     {
         onGame = false;
-        sessionPayment = 0;
+
+        int sessionMultiplier = 0;
+        if (sessionPayment != 0)
+        {
+            foreach (GameObject fruit in fruits)
+            {
+                FruitController fruitController = fruit.GetComponent<FruitController>();
+                FruitSettings settingsComponent = fruitController.GetFruitSettings();
+                if (settingsComponent.name == fruitSettings[10].name)
+                {
+
+                    sessionMultiplier += fruitController.multiplier;
+                }
+            }
+        }
+
+        if(sessionMultiplier > 0)
+        {
+            double oldPayment = sessionPayment;
+            sessionPayment *= sessionMultiplier;
+            UIManager.Instance.SetTumbleText(Wallet.Instance.currency + oldPayment.ToString("#,0.00") + " X " + sessionMultiplier);
+            Invoke("SetTumbleTextAfterMultiply", 0.5f);
+        }
 
         if (bonusSpinCount == 0)
         {
@@ -376,10 +409,16 @@ public class FruitsController : MonoBehaviour
             UIManager.Instance.CloseBonusLeftText();
             Wallet.Instance.moneyAmount += bonusPayment;
             bonusPayment = 0;
+            UIManager.Instance.tumbleGameObject.SetActive(false);
         }
-
         if (bonusGame)
-            BonusSpin();
+            Invoke("BonusSpin", 1f);
+    }
+
+    void SetTumbleTextAfterMultiply()
+    {
+        if(bonusGame)
+        UIManager.Instance.SetTumbleText(Wallet.Instance.currency + sessionPayment.ToString("#,0.00"));
     }
 
     public void ActivateAutoSpin(int amount)

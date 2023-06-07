@@ -68,7 +68,7 @@ public class Wallet : MonoBehaviour
 
     void RefreshUI()
     {
-        UIManager.Instance.SetCreditText(moneyAmount.ToString("#,0.00") + " " + currency);
-        UIManager.Instance.SetBetText(bet.ToString("#,0.00") + " " + currency);
+        UIManager.Instance.SetCreditText(currency + moneyAmount.ToString("#,0.00"));
+        UIManager.Instance.SetBetText(currency + bet.ToString("#,0.00"));
     }
 }
