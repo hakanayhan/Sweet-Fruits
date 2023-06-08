@@ -44,11 +44,11 @@ public class FruitController : MonoBehaviour
 
     int GetRandomMultiplier()
     {
-        multiplierList = FruitsController.Instance.multiplierList;
+        multiplierList = GameController.Instance.multiplierList;
         int lastIndex = multiplierList.Count - 1;
-        for (int i = 0; i < lastIndex; i++)
+        for (int i = 0; i <= lastIndex; i++)
         {
-            if (UnityEngine.Random.Range(0, 4) == 0 || i == lastIndex)
+            if (UnityEngine.Random.Range(0, 10) >= 7 || i == lastIndex)
                 return multiplierList[i];
         }
         return 2;
@@ -56,6 +56,6 @@ public class FruitController : MonoBehaviour
 
     private void OnDestroy()
     {
-        FruitsController.Instance.fruits.Remove(gameObject);
+        GameController.Instance.fruits.Remove(gameObject);
     }
 }

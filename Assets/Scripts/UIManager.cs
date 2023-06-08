@@ -41,7 +41,7 @@ public class UIManager : MonoBehaviour
     public void StartBonus()
     {
         bonusPopup.SetActive(false);
-        FruitsController.Instance.StartBonusGame();
+        SessionController.Instance.StartBonusGame();
     }
 
     public void SetCreditText(string text)

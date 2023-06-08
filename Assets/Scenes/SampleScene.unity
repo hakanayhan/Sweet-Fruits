@@ -2418,162 +2418,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 302494475}
-  - component: {fileID: 302494474}
   - component: {fileID: 302494476}
   m_Layer: 0
-  m_Name: Fruits Controller
+  m_Name: Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &302494474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 302494473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ac19cc77a73dfa448b678e156bb3631, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fruits:
-  - {fileID: 322390287}
-  - {fileID: 1382455084}
-  - {fileID: 1917166729}
-  - {fileID: 1161335097}
-  - {fileID: 1232149547}
-  - {fileID: 221619923}
-  - {fileID: 1022457696}
-  - {fileID: 1560947197}
-  - {fileID: 412844917}
-  - {fileID: 1609417502}
-  - {fileID: 1872877427}
-  - {fileID: 532368870}
-  - {fileID: 2011568876}
-  - {fileID: 207066476}
-  - {fileID: 1194781569}
-  - {fileID: 1096104986}
-  - {fileID: 979907662}
-  - {fileID: 739046599}
-  - {fileID: 233923211}
-  - {fileID: 487377232}
-  - {fileID: 1275813679}
-  - {fileID: 155517753}
-  - {fileID: 889503039}
-  - {fileID: 182149543}
-  - {fileID: 20481656}
-  - {fileID: 772955619}
-  - {fileID: 1099943422}
-  - {fileID: 374581095}
-  - {fileID: 1172130562}
-  - {fileID: 1830836806}
-  fruitSettings:
-  - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
-  - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-  - {fileID: 11400000, guid: 2eac5c9d104d54c4d9260d2d0ff1906e, type: 2}
-  - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
-  - {fileID: 11400000, guid: add6acc9e0818354bb1bdfa8896b7bfa, type: 2}
-  - {fileID: 11400000, guid: 2ce306eb3ba476246af530201947727e, type: 2}
-  - {fileID: 11400000, guid: 96751effd3fedaf429bf69afa39391a5, type: 2}
-  - {fileID: 11400000, guid: 4c60a4ee0355b604d877314e9124e133, type: 2}
-  - {fileID: 11400000, guid: a50796abb2c544a42b1f3ba75a2ebcc3, type: 2}
-  - {fileID: 11400000, guid: 8b02e5d94ee4a1b409158cf0efec4702, type: 2}
-  - {fileID: 11400000, guid: a2ebbc69ec23d6d42b191469fd45bc3f, type: 2}
-  lines:
-  - lineTransform: {fileID: 1687577521}
-    spawnOrder:
-    - {fileID: 11400000, guid: 4c60a4ee0355b604d877314e9124e133, type: 2}
-    - {fileID: 11400000, guid: a50796abb2c544a42b1f3ba75a2ebcc3, type: 2}
-    - {fileID: 11400000, guid: a50796abb2c544a42b1f3ba75a2ebcc3, type: 2}
-    - {fileID: 11400000, guid: 96751effd3fedaf429bf69afa39391a5, type: 2}
-    - {fileID: 11400000, guid: 96751effd3fedaf429bf69afa39391a5, type: 2}
-    - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
-    - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
-    - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
-    - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
-    - {fileID: 11400000, guid: 4c60a4ee0355b604d877314e9124e133, type: 2}
-    - {fileID: 11400000, guid: 4c60a4ee0355b604d877314e9124e133, type: 2}
-  - lineTransform: {fileID: 1137836520}
-    spawnOrder:
-    - {fileID: 11400000, guid: 2eac5c9d104d54c4d9260d2d0ff1906e, type: 2}
-    - {fileID: 11400000, guid: 4c60a4ee0355b604d877314e9124e133, type: 2}
-    - {fileID: 11400000, guid: 4c60a4ee0355b604d877314e9124e133, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
-    - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
-    - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
-  - lineTransform: {fileID: 1289519402}
-    spawnOrder:
-    - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
-    - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
-    - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
-    - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
-    - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
-    - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: add6acc9e0818354bb1bdfa8896b7bfa, type: 2}
-    - {fileID: 11400000, guid: add6acc9e0818354bb1bdfa8896b7bfa, type: 2}
-  - lineTransform: {fileID: 1852631679}
-    spawnOrder:
-    - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
-    - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
-    - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-  - lineTransform: {fileID: 1923791157}
-    spawnOrder:
-    - {fileID: 11400000, guid: 2ce306eb3ba476246af530201947727e, type: 2}
-    - {fileID: 11400000, guid: 2ce306eb3ba476246af530201947727e, type: 2}
-    - {fileID: 11400000, guid: a50796abb2c544a42b1f3ba75a2ebcc3, type: 2}
-    - {fileID: 11400000, guid: a50796abb2c544a42b1f3ba75a2ebcc3, type: 2}
-    - {fileID: 11400000, guid: 4c60a4ee0355b604d877314e9124e133, type: 2}
-    - {fileID: 11400000, guid: 4c60a4ee0355b604d877314e9124e133, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
-    - {fileID: 11400000, guid: 96751effd3fedaf429bf69afa39391a5, type: 2}
-    - {fileID: 11400000, guid: 96751effd3fedaf429bf69afa39391a5, type: 2}
-  - lineTransform: {fileID: 814215374}
-    spawnOrder:
-    - {fileID: 11400000, guid: 2eac5c9d104d54c4d9260d2d0ff1906e, type: 2}
-    - {fileID: 11400000, guid: 2eac5c9d104d54c4d9260d2d0ff1906e, type: 2}
-    - {fileID: 11400000, guid: 4c60a4ee0355b604d877314e9124e133, type: 2}
-    - {fileID: 11400000, guid: 4c60a4ee0355b604d877314e9124e133, type: 2}
-    - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
-    - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
-    - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
-    - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
-    - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
-    - {fileID: 11400000, guid: 2ce306eb3ba476246af530201947727e, type: 2}
-    - {fileID: 11400000, guid: 2ce306eb3ba476246af530201947727e, type: 2}
-  prefab: {fileID: 6144570472924462577, guid: 858ccfa7841a4d646a34cec8b81716f8, type: 3}
-  spawnOrder: 
-  fruitAmount: 30
-  _spawnDelay: 0.005
-  onSpin: 0
-  onGame: 0
-  bottomObject: {fileID: 174245656}
-  bet: 10
-  autoSpin: 0
-  autoSpinAmount: 0
-  activateBonusGame: 0
-  bonusGame: 0
-  bonusSpinCount: 0
-  bonusPayment: 0
-  multiplierList: 020000000300000004000000050000000600000007000000080000000a0000000f00000014000000190000003200000064000000
 --- !u!224 &302494475
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8229,6 +8081,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1559540398}
   - component: {fileID: 1559540397}
+  - component: {fileID: 1559540402}
+  - component: {fileID: 1559540401}
+  - component: {fileID: 1559540400}
+  - component: {fileID: 1559540399}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -8320,6 +8176,127 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1559540399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559540396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dca9e6d2ebc44243b011a21aab1da32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoSpin: 0
+  autoSpinAmount: 0
+--- !u!114 &1559540400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559540396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bdb98a28c75c0a40a14d70180b2567b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnOrder: 
+  prefab: {fileID: 6144570472924462577, guid: 858ccfa7841a4d646a34cec8b81716f8, type: 3}
+  _spawnDelay: 0.001
+--- !u!114 &1559540401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559540396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97f492f682ea49644a08239d3aeabef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fruitSettings:
+  - {fileID: 11400000, guid: 867650a7453b32e47bb881063c09013d, type: 2}
+  - {fileID: 11400000, guid: ed61065b33862c041b97759e86c79d5d, type: 2}
+  - {fileID: 11400000, guid: 2eac5c9d104d54c4d9260d2d0ff1906e, type: 2}
+  - {fileID: 11400000, guid: a16589994fcacf74da43fcaf1b8d684b, type: 2}
+  - {fileID: 11400000, guid: add6acc9e0818354bb1bdfa8896b7bfa, type: 2}
+  - {fileID: 11400000, guid: a50796abb2c544a42b1f3ba75a2ebcc3, type: 2}
+  - {fileID: 11400000, guid: 2ce306eb3ba476246af530201947727e, type: 2}
+  - {fileID: 11400000, guid: 96751effd3fedaf429bf69afa39391a5, type: 2}
+  - {fileID: 11400000, guid: 4c60a4ee0355b604d877314e9124e133, type: 2}
+  - {fileID: 11400000, guid: 8b02e5d94ee4a1b409158cf0efec4702, type: 2}
+  - {fileID: 11400000, guid: a2ebbc69ec23d6d42b191469fd45bc3f, type: 2}
+  lines:
+  - lineTransform: {fileID: 1687577521}
+    spawnOrder: []
+  - lineTransform: {fileID: 1137836520}
+    spawnOrder: []
+  - lineTransform: {fileID: 1289519402}
+    spawnOrder: []
+  - lineTransform: {fileID: 1852631679}
+    spawnOrder: []
+  - lineTransform: {fileID: 1923791157}
+    spawnOrder: []
+  - lineTransform: {fileID: 814215374}
+    spawnOrder: []
+  fruitAmount: 0
+  maxFruitAmount: 30
+  activateBonusGame: 0
+  bonusGame: 0
+  bonusSpinCount: 0
+  bonusPayment: 0
+--- !u!114 &1559540402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559540396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ac19cc77a73dfa448b678e156bb3631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fruits:
+  - {fileID: 322390287}
+  - {fileID: 1382455084}
+  - {fileID: 1917166729}
+  - {fileID: 1161335097}
+  - {fileID: 1232149547}
+  - {fileID: 221619923}
+  - {fileID: 1022457696}
+  - {fileID: 1560947197}
+  - {fileID: 412844917}
+  - {fileID: 1609417502}
+  - {fileID: 1872877427}
+  - {fileID: 532368870}
+  - {fileID: 2011568876}
+  - {fileID: 207066476}
+  - {fileID: 1194781569}
+  - {fileID: 1096104986}
+  - {fileID: 979907662}
+  - {fileID: 739046599}
+  - {fileID: 233923211}
+  - {fileID: 487377232}
+  - {fileID: 1275813679}
+  - {fileID: 155517753}
+  - {fileID: 889503039}
+  - {fileID: 182149543}
+  - {fileID: 20481656}
+  - {fileID: 772955619}
+  - {fileID: 1099943422}
+  - {fileID: 374581095}
+  - {fileID: 1172130562}
+  - {fileID: 1830836806}
+  onSpin: 0
+  onGame: 0
+  bottomObject: {fileID: 174245656}
+  bet: 10
+  readyToSpawn: 0
+  multiplierList: 020000000300000004000000050000000600000007000000080000000a0000000f00000014000000190000003200000064000000
 --- !u!1 &1560947197
 GameObject:
   m_ObjectHideFlags: 0
@@ -9080,8 +9057,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 302494474}
-        m_TargetAssemblyTypeName: FruitsController, Assembly-CSharp
+      - m_Target: {fileID: 1559540402}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
         m_MethodName: Spin
         m_Mode: 1
         m_Arguments:

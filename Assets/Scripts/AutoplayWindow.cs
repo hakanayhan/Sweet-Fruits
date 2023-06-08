@@ -28,9 +28,9 @@ public class AutoplayWindow : MonoBehaviour
     public void OpenWindow()
     {
         window.SetActive(!window.activeSelf);
-        if (FruitsController.Instance.autoSpin)
+        if (AutoplayController.Instance.autoSpin)
         {
-            FruitsController.Instance.autoSpin = false;
+            AutoplayController.Instance.autoSpin = false;
             UIManager.Instance.autoplayText.text = "AUTOPLAY";
         }
     }
@@ -48,7 +48,7 @@ public class AutoplayWindow : MonoBehaviour
 
     public void StartButton()
     {
-        FruitsController.Instance.ActivateAutoSpin(amount);
+        AutoplayController.Instance.ActivateAutoSpin(amount);
         CloseWindow();
     }
 }
