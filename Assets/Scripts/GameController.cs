@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour
             readyToSpawn = true;
         }
 
-        if (!AnyFruitMoving() && !onSpin && fruits.Count == SessionController.Instance.maxFruitAmount && FruitSpawner.Instance.spawnOrder.Count == 0)
+        if (!AnyFruitMoving() && !onSpin && AreFruitsOnScreen())
             CheckMatchingFruits();
     }
 
@@ -47,6 +47,18 @@ public class GameController : MonoBehaviour
         {
             Rigidbody2D rb = fruit.GetComponent<Rigidbody2D>();
             if (rb != null && rb.velocity.magnitude > 0f)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool AreFruitsOnScreen()
+    {
+        foreach (var fruit in fruits)
+        {
+            if (fruits.Count == SessionController.Instance.maxFruitAmount && FruitSpawner.Instance.spawnOrder.Count == 0 && fruit.transform.position.y < 5)
             {
                 return true;
             }
@@ -124,7 +136,7 @@ public class GameController : MonoBehaviour
                 hasMatchingFruits = true;
             }
         }
-        if (!hasMatchingFruits && onGame && fruits.Count == SessionController.Instance.maxFruitAmount)
+        if (!hasMatchingFruits && onGame)
         {
             onGame = false;
             if (SessionController.Instance.bonusGame)
