@@ -8,7 +8,6 @@ public class GameController : MonoBehaviour
     public static GameController Instance;
     public List<GameObject> fruits = new List<GameObject>();
     
-    public bool onSpin = false;
     public bool onGame = true;
     [SerializeField] GameObject bottomObject;
 
@@ -30,51 +29,41 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if (onSpin && fruits.Count == 0)
+        if (fruits.Count == 0)
         {
-            onSpin = false;
             bottomObject.SetActive(true);
             readyToSpawn = true;
         }
 
-        if (!AnyFruitMoving() && !onSpin && AreFruitsOnScreen())
+        if (onGame && IsEveryFruitOnReel())
             CheckMatchingFruits();
     }
 
-    public bool AnyFruitMoving()
+    public bool IsEveryFruitOnReel()
     {
-        foreach (var fruit in fruits)
+        if (fruits.Count == SessionController.Instance.maxFruitAmount && FruitSpawner.Instance.spawnOrder.Count == 0)
         {
-            Rigidbody2D rb = fruit.GetComponent<Rigidbody2D>();
-            if (rb != null && rb.velocity.magnitude > 0f)
+            foreach (var fruit in fruits)
             {
-                return true;
+                Rigidbody2D rb = fruit.GetComponent<Rigidbody2D>();
+                if (rb == null || rb.velocity.magnitude > 0f || fruit.transform.position.y > 4.5)
+                {
+                    return false;
+                }
             }
-        }
-        return false;
-    }
-
-    public bool AreFruitsOnScreen()
-    {
-        foreach (var fruit in fruits)
-        {
-            if (fruits.Count == SessionController.Instance.maxFruitAmount && FruitSpawner.Instance.spawnOrder.Count == 0 && fruit.transform.position.y < 5)
-            {
-                return true;
-            }
+            return true;
         }
         return false;
     }
 
     public void Spin()
     {
-        if (!onSpin && !onGame && !AnyFruitMoving() && !SessionController.Instance.bonusGame && !SessionController.Instance.activateBonusGame)
+        if (!onGame && !SessionController.Instance.bonusGame && !SessionController.Instance.activateBonusGame)
         {
             bet = Wallet.Instance.bet;
             if (Wallet.Instance.TryRemoveMoney(bet))
             {
                 bottomObject.SetActive(false);
-                onSpin = true;
                 onGame = true;
                 readyToSpawn = false;
                 SessionController.Instance.StartNewSession();
@@ -93,7 +82,6 @@ public class GameController : MonoBehaviour
         bottomObject.SetActive(false);
         SessionController.Instance.bonusSpinCount--;
         UIManager.Instance.SetBonusLeftText("FREE SPINS LEFT " + SessionController.Instance.bonusSpinCount);
-        onSpin = true;
         onGame = true;
         readyToSpawn = false;
         SessionController.Instance.StartNewSession();
@@ -191,9 +179,9 @@ public class GameController : MonoBehaviour
         foreach (GameObject fruit in matchingFruits)
         {
             int currentLine = fruit.GetComponent<FruitController>().currentLine;
+            Destroy(fruit);
             FruitSpawner.Instance.CreateSpawnOrder(currentLine);
             SessionController.Instance.GenerateSpawnOrder(SessionController.Instance.lines[currentLine]);
-            Destroy(fruit);
         }
     }
 }

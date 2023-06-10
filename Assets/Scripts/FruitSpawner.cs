@@ -29,7 +29,7 @@ public class FruitSpawner : MonoBehaviour
             SetDelayTime();
             _spawnOffset += 0.5f;
         }
-        if (spawnOrder.Count == 0 && !GameController.Instance.AnyFruitMoving())
+        if (spawnOrder.Count == 0 && GameController.Instance.IsEveryFruitOnReel())
             _spawnOffset = 0;
     }
 
