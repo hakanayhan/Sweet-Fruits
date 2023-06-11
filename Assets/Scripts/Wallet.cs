@@ -70,5 +70,11 @@ public class Wallet : MonoBehaviour
     {
         UIManager.Instance.SetCreditText(currency + moneyAmount.ToString("#,0.00"));
         UIManager.Instance.SetBetText(currency + bet.ToString("#,0.00"));
+        UIManager.Instance.SetBonusBuyCostText(currency + GetBonusBuyCost().ToString("#,0"));
+    }
+
+    public double GetBonusBuyCost()
+    {
+        return bet * 100;
     }
 }

@@ -23,6 +23,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject bonusPopup;
 
+    public TextMeshProUGUI bonusBuyCostText;
+
     void Awake()
     {
         if (Instance != null)
@@ -90,5 +92,10 @@ public class UIManager : MonoBehaviour
     {
         tumbleGameObject.SetActive(true);
         tumbleText.text = text;
+    }
+
+    public void SetBonusBuyCostText(string text)
+    {
+        bonusBuyCostText.text = text;
     }
 }
