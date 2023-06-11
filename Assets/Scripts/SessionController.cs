@@ -13,6 +13,7 @@ public class SessionController : MonoBehaviour
     public int maxFruitAmount = 30;
 
     public bool activateBonusGame;
+    public bool addSpin;
     public bool bonusGame;
     public int bonusSpinCount;
     public double bonusPayment;
@@ -109,6 +110,12 @@ public class SessionController : MonoBehaviour
             sessionPayment *= sessionMultiplier;
             UIManager.Instance.SetTumbleText(Wallet.Instance.currency + oldPayment.ToString("#,0.00") + " X " + sessionMultiplier);
             Invoke("SetTumbleTextAfterMultiply", 0.5f);
+        }
+
+        if (addSpin)
+        {
+            bonusSpinCount += 5;
+            addSpin = false;
         }
 
         if (bonusSpinCount == 0)

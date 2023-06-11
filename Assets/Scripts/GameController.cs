@@ -116,6 +116,10 @@ public class GameController : MonoBehaviour
             {
                 SessionController.Instance.activateBonusGame = true;
             }
+            if (onGame && SessionController.Instance.bonusGame && pair.Key.name == SessionController.Instance.fruitSettings[9].name && pair.Value >= 3)
+            {
+                SessionController.Instance.addSpin = true;
+            }
             if (pair.Value >= 8)
             {
                 List<GameObject> matchingFruits = GetMatchingFruits(pair.Key);
