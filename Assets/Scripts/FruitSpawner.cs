@@ -35,13 +35,13 @@ public class FruitSpawner : MonoBehaviour
 
     public void SpawnNewFruit(int a)
     {
-        FruitSettings settings = SessionController.Instance.lines[a].spawnOrder[0];
-        GameObject g = Instantiate(prefab, SessionController.Instance.lines[a].lineTransform);
+        FruitSettings settings = SessionController.Instance.columns[a].spawnOrder[0];
+        GameObject g = Instantiate(prefab, SessionController.Instance.columns[a].columnTransform);
         g.transform.position += new Vector3(0f, _spawnOffset, 0f);
-        g.GetComponent<FruitController>().currentLine = a;
+        g.GetComponent<FruitController>().currentColumn = a;
         g.GetComponent<FruitController>().SetFruitSettings(settings);
         GameController.Instance.fruits.Add(g);
-        SessionController.Instance.lines[a].spawnOrder.RemoveAt(0);
+        SessionController.Instance.columns[a].spawnOrder.RemoveAt(0);
 
         if (settings.name == SessionController.Instance.fruitSettings[10].name)
             g.GetComponent<FruitController>().SetMultiplier();
@@ -52,8 +52,8 @@ public class FruitSpawner : MonoBehaviour
         _nextSpawnTime = Time.time + _spawnDelay;
     }
 
-    public void CreateSpawnOrder(int line)
+    public void CreateSpawnOrder(int column)
     {
-        spawnOrder.Add(line);
+        spawnOrder.Add(column);
     }
 }

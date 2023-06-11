@@ -87,6 +87,23 @@ public class GameController : MonoBehaviour
         SessionController.Instance.StartNewSession();
     }
 
+    public void BuySpin()
+    {
+        if (!onGame && !SessionController.Instance.bonusGame && !SessionController.Instance.activateBonusGame)
+        {
+            bet = Wallet.Instance.bet;
+            double buyCost = Wallet.Instance.GetBonusBuyCost();
+            if (Wallet.Instance.TryRemoveMoney(buyCost))
+            {
+                bottomObject.SetActive(false);
+                onGame = true;
+                readyToSpawn = false;
+                SessionController.Instance.StartNewSession(true);
+                UIManager.Instance.ActivateGoodLuckText();
+            }
+        }
+    }
+
     void CheckMatchingFruits()
     {
         Dictionary<FruitSettings, int> fruitCount = new Dictionary<FruitSettings, int>();
@@ -182,10 +199,10 @@ public class GameController : MonoBehaviour
     {
         foreach (GameObject fruit in matchingFruits)
         {
-            int currentLine = fruit.GetComponent<FruitController>().currentLine;
+            int currentColumn = fruit.GetComponent<FruitController>().currentColumn;
             Destroy(fruit);
-            FruitSpawner.Instance.CreateSpawnOrder(currentLine);
-            SessionController.Instance.GenerateSpawnOrder(SessionController.Instance.lines[currentLine]);
+            FruitSpawner.Instance.CreateSpawnOrder(currentColumn);
+            SessionController.Instance.GenerateSpawnOrder(SessionController.Instance.columns[currentColumn]);
         }
     }
 }

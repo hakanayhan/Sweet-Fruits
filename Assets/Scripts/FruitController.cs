@@ -6,7 +6,7 @@ using TMPro;
 public class FruitController : MonoBehaviour
 {
     [SerializeField] FruitSettings fruitSettings;
-    public int currentLine;
+    public int currentColumn;
     [SerializeField] private GameObject _multiplierText;
     [HideInInspector] public int multiplier;
     List<int> multiplierList;

@@ -7,7 +7,7 @@ public class SessionController : MonoBehaviour
 {
     public static SessionController Instance;
     public List<FruitSettings> fruitSettings = new List<FruitSettings>();
-    public List<Lines> lines;
+    public List<Columns> columns;
 
     public int fruitAmount = 0;
     public int maxFruitAmount = 30;
@@ -52,13 +52,17 @@ public class SessionController : MonoBehaviour
         Instance = this;
     }
 
-    public void StartNewSession()
+    public void StartNewSession(bool buyBonusFeature = false)
     {
         fruitAmount = 0;
         sessionPayment = 0;
 
         FruitSpawner.Instance.spawnOrder.Clear();
         GenerateSpawnOrders();
+
+        if (buyBonusFeature)
+            AddCandies();
+
         for (int i = 0; fruitAmount < maxFruitAmount; fruitAmount++)
         {
             FruitSpawner.Instance.spawnOrder.Add(i);
@@ -136,34 +140,57 @@ public class SessionController : MonoBehaviour
     }
     void GenerateSpawnOrders()
     {
-        foreach (Lines line in lines)
+        foreach (Columns column in columns)
         {
-            line.spawnOrder.Clear();
+            column.spawnOrder.Clear();
             for (int a = 0; a < 6; a++)
             {
                 if (a == 0 && UnityEngine.Random.Range(0, 2) == 1)
                 {
-                    GenerateSpawnOrder(line, 1);
+                    GenerateSpawnOrder(column, 1);
                 }
                 else
                 {
-                    GenerateSpawnOrder(line);
+                    GenerateSpawnOrder(column);
                 }
 
             }
         }
     }
 
-    public void GenerateSpawnOrder(Lines line, int howMany = 2)
+    public void GenerateSpawnOrder(Columns column, int howMany = 2)
     {
         FruitSettings r = GetRandomFruitBySpawnRate();
-        int c = line.spawnOrder.Count;
-        if (r.bonus || r.name == fruitSettings[10].name || c > 0 && r.name == line.spawnOrder[c - 1].name)
+        int c = column.spawnOrder.Count;
+        if (r.bonus || r.name == fruitSettings[10].name || c > 0 && r.name == column.spawnOrder[c - 1].name)
             howMany = 1;
 
         for (int a = 0; a < howMany; a++)
         {
-            line.spawnOrder.Add(r);
+            column.spawnOrder.Add(r);
+        }
+    }
+
+    void AddCandies()
+    {
+        int i = 0;
+        foreach (Columns column in columns)
+        {
+            for (int k = 0; k < 5; k++)
+            {
+                if (column.spawnOrder[k].name == fruitSettings[9].name)
+                    i++;
+            }
+        }
+        for (int j = i; j < 4;)
+        {
+            int randomColumn = UnityEngine.Random.Range(0, columns.Count);
+            int randomLine = UnityEngine.Random.Range(0, 5);
+            if (columns[randomColumn].spawnOrder[randomLine].name != fruitSettings[9].name)
+            {
+                columns[randomColumn].spawnOrder[randomLine] = fruitSettings[9];
+                j++;
+            }
         }
     }
 
@@ -212,8 +239,8 @@ public class SessionController : MonoBehaviour
     }
 }
 
-[Serializable] public class Lines
+[Serializable] public class Columns
 {
-    public Transform lineTransform;
+    public Transform columnTransform;
     [HideInInspector] public List<FruitSettings> spawnOrder = new List<FruitSettings>();
 }

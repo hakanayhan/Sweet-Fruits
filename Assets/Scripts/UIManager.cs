@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     public GameObject bonusPopup;
 
     public TextMeshProUGUI bonusBuyCostText;
+    public TextMeshProUGUI bonusBuyCostWindowText;
+    public GameObject bonusBuyWindow;
 
     void Awake()
     {
@@ -44,6 +46,12 @@ public class UIManager : MonoBehaviour
     {
         bonusPopup.SetActive(false);
         SessionController.Instance.StartBonusGame();
+    }
+
+    public void BuyBonusFeature()
+    {
+        bonusBuyWindow.SetActive(false);
+        GameController.Instance.BuySpin();
     }
 
     public void SetCreditText(string text)
@@ -92,6 +100,19 @@ public class UIManager : MonoBehaviour
     {
         tumbleGameObject.SetActive(true);
         tumbleText.text = text;
+    }
+    public void OpenBonusBuyWindow()
+    {
+        if(Wallet.Instance.moneyAmount >= Wallet.Instance.GetBonusBuyCost())
+        {
+            bonusBuyCostWindowText.text = Wallet.Instance.currency + Wallet.Instance.GetBonusBuyCost().ToString("#,0");
+            bonusBuyWindow.SetActive(true);
+        }
+    }
+
+    public void CloseBonusBuyWindow()
+    {
+        bonusBuyWindow.SetActive(false);
     }
 
     public void SetBonusBuyCostText(string text)
