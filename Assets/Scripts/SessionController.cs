@@ -74,6 +74,11 @@ public class SessionController : MonoBehaviour
 
     public void FinishSession()
     {
+        PaymentScreen();
+    }
+
+    public void FinishSession2()
+    {
         if (!activateBonusGame && !bonusGame)
             Wallet.Instance.moneyAmount += sessionPayment;
 
@@ -116,6 +121,10 @@ public class SessionController : MonoBehaviour
             Invoke("SetTumbleTextAfterMultiply", 0.5f);
         }
 
+        PaymentScreen();
+    }
+    public void FinishBonusSession2()
+    {
         if (addSpin)
         {
             bonusSpinCount += 5;
@@ -132,6 +141,37 @@ public class SessionController : MonoBehaviour
         }
         if (bonusGame)
             Invoke("BonusSpin", 1f);
+    }
+
+    void PaymentScreen()
+    {
+        if(sessionPayment >= Wallet.Instance.bet * 60)
+        {
+            UIManager.Instance.OpenPaymentScreen("SENSATIONAL!", Wallet.Instance.currency + sessionPayment.ToString("#,0.00"));
+        }
+        else if (sessionPayment >= Wallet.Instance.bet * 45)
+        {
+            UIManager.Instance.OpenPaymentScreen("SUPERB!", Wallet.Instance.currency + sessionPayment.ToString("#,0.00"));
+        }
+        else if (sessionPayment >= Wallet.Instance.bet * 30)
+        {
+            UIManager.Instance.OpenPaymentScreen("MEGA!", Wallet.Instance.currency + sessionPayment.ToString("#,0.00"));
+        }
+        else if (sessionPayment >= Wallet.Instance.bet * 15)
+        {
+            UIManager.Instance.OpenPaymentScreen("NICE!", Wallet.Instance.currency + sessionPayment.ToString("#,0.00"));
+        }
+        else
+        {
+            if (bonusGame)
+            {
+                FinishBonusSession2();
+            }
+            else
+            {
+                FinishSession2();
+            }
+        }
     }
 
     void BonusSpin()

@@ -27,6 +27,10 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI bonusBuyCostWindowText;
     public GameObject bonusBuyWindow;
 
+    public GameObject paymentScreen;
+    public TextMeshProUGUI paymentScreenText;
+    public TextMeshProUGUI paymentScreenWinText;
+
     void Awake()
     {
         if (Instance != null)
@@ -118,5 +122,24 @@ public class UIManager : MonoBehaviour
     public void SetBonusBuyCostText(string text)
     {
         bonusBuyCostText.text = text;
+    }
+
+    public void OpenPaymentScreen(string screenText, string winText)
+    {
+        paymentScreenText.text = screenText;
+        paymentScreenWinText.text = winText;
+        paymentScreen.SetActive(true);
+    }
+    public void ClosePaymentScreen()
+    {
+        paymentScreen.SetActive(false);
+        if (SessionController.Instance.bonusGame)
+        {
+            SessionController.Instance.FinishBonusSession2();
+        }
+        else
+        {
+            SessionController.Instance.FinishSession2();
+        }
     }
 }
