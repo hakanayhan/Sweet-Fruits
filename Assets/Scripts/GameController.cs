@@ -137,7 +137,7 @@ public class GameController : MonoBehaviour
             {
                 SessionController.Instance.addSpin = true;
             }
-            if (pair.Value >= 8)
+            if (pair.Value >= 8 && pair.Key.name != SessionController.Instance.fruitSettings[9].name && pair.Key.name != SessionController.Instance.fruitSettings[10].name)
             {
                 List<GameObject> matchingFruits = GetMatchingFruits(pair.Key);
                 ExplodeMatchingFruits(matchingFruits);
