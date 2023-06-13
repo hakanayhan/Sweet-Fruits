@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour
     public double bet;
 
     public bool readyToSpawn;
+
+    int bonusAmount = 0;
     
     public List<int> multiplierList = new List<int>();
 
@@ -144,9 +146,15 @@ public class GameController : MonoBehaviour
                 PayMatchingFruits(pair.Key, pair.Value);
                 hasMatchingFruits = true;
             }
+            if(pair.Key.name == SessionController.Instance.fruitSettings[9].name)
+                bonusAmount = pair.Value;
         }
         if (!hasMatchingFruits && onGame)
         {
+            if(bonusAmount >= 4)
+                PayMatchingBonuses(SessionController.Instance.fruitSettings[9], bonusAmount);
+
+            bonusAmount = 0;
             onGame = false;
             if (SessionController.Instance.bonusGame)
             {
@@ -186,6 +194,26 @@ public class GameController : MonoBehaviour
             SessionController.Instance.sessionPayment += bet * fruit.tenElevenPaymentMultiplier;
         }
         else if (amount >= 12)
+        {
+            SessionController.Instance.sessionPayment += bet * fruit.twelveAndAbovePaymentMultiplier;
+        }
+        else
+        {
+            Debug.Log("payment error");
+        }
+    }
+
+    void PayMatchingBonuses(FruitSettings fruit, int amount)
+    {
+        if (amount == 4)
+        {
+            SessionController.Instance.sessionPayment += bet * fruit.eightNinePaymentMultiplier;
+        }
+        else if (amount == 5)
+        {
+            SessionController.Instance.sessionPayment += bet * fruit.tenElevenPaymentMultiplier;
+        }
+        else if (amount >= 6)
         {
             SessionController.Instance.sessionPayment += bet * fruit.twelveAndAbovePaymentMultiplier;
         }
