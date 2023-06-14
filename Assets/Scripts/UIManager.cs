@@ -135,11 +135,11 @@ public class UIManager : MonoBehaviour
         paymentScreen.SetActive(false);
         if (SessionController.Instance.bonusGame)
         {
-            SessionController.Instance.FinishBonusSession2();
+            SessionController.Instance.EndBonusSession();
         }
         else
         {
-            SessionController.Instance.FinishSession2();
+            SessionController.Instance.EndSession();
         }
     }
 }

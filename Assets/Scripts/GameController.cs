@@ -156,15 +156,7 @@ public class GameController : MonoBehaviour
 
             bonusAmount = 0;
             onGame = false;
-            if (SessionController.Instance.bonusGame)
-            {
-                SessionController.Instance.FinishBonusSession();
-            }
-            else
-            {
-                SessionController.Instance.FinishSession();
-            }
-            
+            SessionController.Instance.FinishSession();
         }
     }
 

@@ -74,10 +74,36 @@ public class SessionController : MonoBehaviour
 
     public void FinishSession()
     {
+        if (bonusGame)
+        {
+            int sessionMultiplier = 0;
+            if (sessionPayment != 0)
+            {
+                foreach (GameObject fruit in GameController.Instance.fruits)
+                {
+                    FruitController fruitController = fruit.GetComponent<FruitController>();
+                    FruitSettings settingsComponent = fruitController.GetFruitSettings();
+                    if (settingsComponent.name == fruitSettings[10].name)
+                    {
+
+                        sessionMultiplier += fruitController.multiplier;
+                    }
+                }
+            }
+
+            if (sessionMultiplier > 0)
+            {
+                double oldPayment = sessionPayment;
+                sessionPayment *= sessionMultiplier;
+                UIManager.Instance.SetTumbleText(Wallet.Instance.currency + oldPayment.ToString("#,0.00") + " X " + sessionMultiplier);
+                Invoke("SetTumbleTextAfterMultiply", 0.5f);
+            }
+        }
+
         PaymentScreen();
     }
 
-    public void FinishSession2()
+    public void EndSession()
     {
         if (!activateBonusGame && !bonusGame)
             Wallet.Instance.moneyAmount += sessionPayment;
@@ -95,35 +121,7 @@ public class SessionController : MonoBehaviour
         }
         sessionPayment = 0;
     }
-
-    public void FinishBonusSession()
-    {
-        int sessionMultiplier = 0;
-        if (sessionPayment != 0)
-        {
-            foreach (GameObject fruit in GameController.Instance.fruits)
-            {
-                FruitController fruitController = fruit.GetComponent<FruitController>();
-                FruitSettings settingsComponent = fruitController.GetFruitSettings();
-                if (settingsComponent.name == fruitSettings[10].name)
-                {
-
-                    sessionMultiplier += fruitController.multiplier;
-                }
-            }
-        }
-
-        if (sessionMultiplier > 0)
-        {
-            double oldPayment = sessionPayment;
-            sessionPayment *= sessionMultiplier;
-            UIManager.Instance.SetTumbleText(Wallet.Instance.currency + oldPayment.ToString("#,0.00") + " X " + sessionMultiplier);
-            Invoke("SetTumbleTextAfterMultiply", 0.5f);
-        }
-
-        PaymentScreen();
-    }
-    public void FinishBonusSession2()
+    public void EndBonusSession()
     {
         if (addSpin)
         {
@@ -165,11 +163,11 @@ public class SessionController : MonoBehaviour
         {
             if (bonusGame)
             {
-                FinishBonusSession2();
+                EndBonusSession();
             }
             else
             {
-                FinishSession2();
+                EndSession();
             }
         }
     }
