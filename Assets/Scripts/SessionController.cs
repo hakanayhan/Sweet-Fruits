@@ -281,4 +281,5 @@ public class SessionController : MonoBehaviour
 {
     public Transform columnTransform;
     [HideInInspector] public List<FruitSettings> spawnOrder = new List<FruitSettings>();
+    public List<GameObject> availableFruits = new List<GameObject>();
 }

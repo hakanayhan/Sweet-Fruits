@@ -13,9 +13,9 @@ public class FruitController : MonoBehaviour
 
     private void Update()
     {
-        if(transform.position.y < -6)
+        if(gameObject.activeSelf && transform.position.y < -6)
         {
-            Destroy(gameObject);
+            Deactive();
         }
     }
     public void SetFruitSettings(FruitSettings fruitSettings)
@@ -54,8 +54,11 @@ public class FruitController : MonoBehaviour
         return 2;
     }
 
-    private void OnDestroy()
+    public void Deactive()
     {
+        gameObject.SetActive(false);
+        _multiplierText.SetActive(false);
         GameController.Instance.fruits.Remove(gameObject);
+        SessionController.Instance.columns[currentColumn].availableFruits.Add(gameObject);
     }
 }

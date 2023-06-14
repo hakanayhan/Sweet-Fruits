@@ -220,7 +220,7 @@ public class GameController : MonoBehaviour
         foreach (GameObject fruit in matchingFruits)
         {
             int currentColumn = fruit.GetComponent<FruitController>().currentColumn;
-            Destroy(fruit);
+            fruit.GetComponent<FruitController>().Deactive();
             FruitSpawner.Instance.CreateSpawnOrder(currentColumn);
             SessionController.Instance.GenerateSpawnOrder(SessionController.Instance.columns[currentColumn]);
         }

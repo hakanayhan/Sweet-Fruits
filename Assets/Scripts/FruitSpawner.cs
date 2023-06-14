@@ -36,10 +36,12 @@ public class FruitSpawner : MonoBehaviour
     public void SpawnNewFruit(int a)
     {
         FruitSettings settings = SessionController.Instance.columns[a].spawnOrder[0];
-        GameObject g = Instantiate(prefab, SessionController.Instance.columns[a].columnTransform);
-        g.transform.position += new Vector3(0f, _spawnOffset, 0f);
-        g.GetComponent<FruitController>().currentColumn = a;
+        GameObject g = SessionController.Instance.columns[a].availableFruits[0];
+        SessionController.Instance.columns[a].availableFruits.RemoveAt(0);
+        g.transform.position = SessionController.Instance.columns[a].columnTransform.position;
+        g.transform.position += new Vector3(-1f, _spawnOffset, 0f);
         g.GetComponent<FruitController>().SetFruitSettings(settings);
+        g.SetActive(true);
         GameController.Instance.fruits.Add(g);
         SessionController.Instance.columns[a].spawnOrder.RemoveAt(0);
 
