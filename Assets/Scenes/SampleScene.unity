@@ -10032,7 +10032,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94abcbda12d2f6e498f63f3a351ee15c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doubleChanceEffect: 1
+  doubleChanceEffect: 0.5
   doubleChanceCostText: {fileID: 490279079}
   onImage: {fileID: 1982649302}
   offImage: {fileID: 1062461587}

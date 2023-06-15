@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: HeartSweet_Settings
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: cb53fc509738af1408ee82b99a726ace, type: 3}
-  spawnRate: 4
-  bonusSpawnRate: 4
+  spawnRate: 2.5
+  bonusSpawnRate: 2.5
   bonus: 0
   eightNinePaymentMultiplier: 10
   tenElevenPaymentMultiplier: 25

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 37981b89a4b56544094958a9f6c3620f, type: 3}
   spawnRate: 0
-  bonusSpawnRate: 6
+  bonusSpawnRate: 5
   bonus: 0
   eightNinePaymentMultiplier: 0
   tenElevenPaymentMultiplier: 0

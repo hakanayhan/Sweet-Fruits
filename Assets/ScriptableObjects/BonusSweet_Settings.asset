@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BonusSweet_Settings
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 9f50fc711d294ba4d8174007e4ae680b, type: 3}
-  spawnRate: 3
-  bonusSpawnRate: 3
+  spawnRate: 2.5
+  bonusSpawnRate: 2.5
   bonus: 1
   eightNinePaymentMultiplier: 3
   tenElevenPaymentMultiplier: 5

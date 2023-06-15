@@ -48,7 +48,7 @@ public class FruitController : MonoBehaviour
         int lastIndex = multiplierList.Count - 1;
         for (int i = 0; i <= lastIndex; i++)
         {
-            if (UnityEngine.Random.Range(0, 10) >= 7 || i == lastIndex)
+            if (UnityEngine.Random.Range(0, 20) <= 4 || i == lastIndex)
                 return multiplierList[i];
         }
         return 2;

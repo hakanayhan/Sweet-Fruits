@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Peach_Settings
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: fae4c8ed5a4792a4b88f603e68b76dd1, type: 3}
-  spawnRate: 14
-  bonusSpawnRate: 14
+  spawnRate: 12
+  bonusSpawnRate: 12
   bonus: 0
   eightNinePaymentMultiplier: 0.8
   tenElevenPaymentMultiplier: 1.2
