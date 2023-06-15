@@ -43,6 +43,9 @@ public class Wallet : MonoBehaviour
 
     public bool TryRemoveMoney(double money)
     {
+        if (SessionController.Instance.doubleChance)
+            money *= 1.25;
+
         if (moneyAmount < money)
             return false;
 
@@ -66,11 +69,21 @@ public class Wallet : MonoBehaviour
         RefreshUI();
     }
 
-    void RefreshUI()
+    public void RefreshUI()
     {
         UIManager.Instance.SetCreditText(currency + moneyAmount.ToString("#,0.00"));
-        UIManager.Instance.SetBetText(currency + bet.ToString("#,0.00"));
+
+        if (!SessionController.Instance.doubleChance)
+        {
+            UIManager.Instance.SetBetText(currency + bet.ToString("#,0.00"));
+        }
+        else
+        {
+            UIManager.Instance.SetBetText(currency + (bet * 1.25).ToString("#,0.00"));
+        }
+
         UIManager.Instance.SetBonusBuyCostText(currency + GetBonusBuyCost().ToString("#,0"));
+        DoubleChanceController.Instance.SetDoubleChanceCostText();
     }
 
     public double GetBonusBuyCost()

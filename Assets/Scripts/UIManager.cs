@@ -107,7 +107,7 @@ public class UIManager : MonoBehaviour
     }
     public void OpenBonusBuyWindow()
     {
-        if(Wallet.Instance.moneyAmount >= Wallet.Instance.GetBonusBuyCost())
+        if(Wallet.Instance.moneyAmount >= Wallet.Instance.GetBonusBuyCost() && !GameController.Instance.onGame && !AutoplayController.Instance.autoSpin && !SessionController.Instance.doubleChance)
         {
             bonusBuyCostWindowText.text = Wallet.Instance.currency + Wallet.Instance.GetBonusBuyCost().ToString("#,0");
             bonusBuyWindow.SetActive(true);

@@ -18,6 +18,8 @@ public class SessionController : MonoBehaviour
     public int bonusSpinCount;
     public double bonusPayment;
 
+    public bool doubleChance;
+
     private double _sessionPayment;
     public double sessionPayment
     {
@@ -242,6 +244,9 @@ public class SessionController : MonoBehaviour
         {
             cumulativeSpawnRate += (bonusGame) ? fruitSetting.bonusSpawnRate : fruitSetting.spawnRate;
 
+            if (doubleChance && !bonusGame && fruitSetting.name == fruitSettings[9].name)
+                cumulativeSpawnRate += DoubleChanceController.Instance.doubleChanceEffect;
+
             if (randomValue < cumulativeSpawnRate)
             {
                 return fruitSetting;
@@ -257,6 +262,9 @@ public class SessionController : MonoBehaviour
         {
             totalSpawnRate += (bonusGame) ? fruitSetting.bonusSpawnRate : fruitSetting.spawnRate;
         }
+        if (doubleChance && !bonusGame)
+            totalSpawnRate += DoubleChanceController.Instance.doubleChanceEffect;
+
         return totalSpawnRate;
     }
 
