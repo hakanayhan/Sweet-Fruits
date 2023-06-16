@@ -44,6 +44,7 @@ public class DoubleChanceController : MonoBehaviour
             }
             Wallet.Instance.RefreshUI();
         }
+        UIManager.Instance.RefreshButtons();
     }
 
     public void SetDoubleChanceCostText()

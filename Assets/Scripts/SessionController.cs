@@ -59,6 +59,8 @@ public class SessionController : MonoBehaviour
         fruitAmount = 0;
         sessionPayment = 0;
 
+        UIManager.Instance.RefreshButtons();
+
         FruitSpawner.Instance.spawnOrder.Clear();
         GenerateSpawnOrders();
 
@@ -103,6 +105,7 @@ public class SessionController : MonoBehaviour
         }
 
         PaymentScreen();
+        UIManager.Instance.RefreshButtons();
     }
 
     public void EndSession()
@@ -118,6 +121,7 @@ public class SessionController : MonoBehaviour
 
         if (activateBonusGame)
         {
+            AutoplayWindow.Instance.CloseWindow();
             UIManager.Instance.OpenBonusPopup();
             bonusPayment = sessionPayment;
         }
@@ -138,6 +142,8 @@ public class SessionController : MonoBehaviour
             Wallet.Instance.moneyAmount += bonusPayment;
             bonusPayment = 0;
             UIManager.Instance.tumbleGameObject.SetActive(false);
+            AutoplayController.Instance.CheckAutoSpin();
+            UIManager.Instance.RefreshButtons();
         }
         if (bonusGame)
             Invoke("BonusSpin", 1f);

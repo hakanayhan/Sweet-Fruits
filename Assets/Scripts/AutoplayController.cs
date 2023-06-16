@@ -32,6 +32,8 @@ public class AutoplayController : MonoBehaviour
     {
         if (autoSpin && autoSpinAmount == 0)
         {
+            autoSpin = false;
+            UIManager.Instance.autoplayText.text = "AUTOPLAY";
             AutoplayWindow.Instance.OpenWindow();
         }
 

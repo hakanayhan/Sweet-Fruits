@@ -1,35 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
-    public TextMeshProUGUI creditText;
-    public TextMeshProUGUI betText;
-    public TextMeshProUGUI sessionWinText;
+    [SerializeField] TextMeshProUGUI creditText;
+    [SerializeField] TextMeshProUGUI betText;
+    [SerializeField] TextMeshProUGUI sessionWinText;
 
-    public GameObject sessionWinGameObject;
-    public GameObject spinToWinGameObject;
-    public GameObject goodLuckGameObject;
-    public GameObject bonusLeftGameObject;
+    [SerializeField] GameObject sessionWinGameObject;
+    [SerializeField] GameObject spinToWinGameObject;
+    [SerializeField] GameObject goodLuckGameObject;
+    [SerializeField] GameObject bonusLeftGameObject;
 
     public TextMeshProUGUI autoplayText;
-    public TextMeshProUGUI bonusLeftText;
+    [SerializeField] TextMeshProUGUI bonusLeftText;
 
     public GameObject tumbleGameObject;
-    public TextMeshProUGUI tumbleText;
+    [SerializeField] TextMeshProUGUI tumbleText;
 
-    public GameObject bonusPopup;
+    [SerializeField] GameObject bonusPopup;
 
-    public TextMeshProUGUI bonusBuyCostText;
-    public TextMeshProUGUI bonusBuyCostWindowText;
-    public GameObject bonusBuyWindow;
+    [SerializeField] TextMeshProUGUI bonusBuyCostText;
+    [SerializeField] TextMeshProUGUI bonusBuyCostWindowText;
+    [SerializeField] GameObject bonusBuyWindow;
 
-    public GameObject paymentScreen;
-    public TextMeshProUGUI paymentScreenText;
-    public TextMeshProUGUI paymentScreenWinText;
+    [SerializeField] GameObject paymentScreen;
+    [SerializeField] TextMeshProUGUI paymentScreenText;
+    [SerializeField] TextMeshProUGUI paymentScreenWinText;
+
+    [SerializeField] Button bonusBuyButton;
+    [SerializeField] Button doubleChanceButton;
+    [SerializeField] Button decreaseBetButton;
+    [SerializeField] Button increaseBetButton;
 
     void Awake()
     {
@@ -49,6 +55,7 @@ public class UIManager : MonoBehaviour
     public void StartBonus()
     {
         bonusPopup.SetActive(false);
+        autoplayText.text = "AUTOPLAY";
         SessionController.Instance.StartBonusGame();
     }
 
@@ -141,5 +148,24 @@ public class UIManager : MonoBehaviour
         {
             SessionController.Instance.EndSession();
         }
+    }
+
+    public void RefreshButtons()
+    {
+        if (GameController.Instance.onGame || SessionController.Instance.bonusGame)
+        {
+            bonusBuyButton.interactable = false;
+            doubleChanceButton.interactable = false;
+            increaseBetButton.interactable = false;
+            decreaseBetButton.interactable = false;
+        }
+        else
+        {
+            bonusBuyButton.interactable = (SessionController.Instance.doubleChance) ? false : true;
+            doubleChanceButton.interactable = true;
+            increaseBetButton.interactable = true;
+            decreaseBetButton.interactable = true;
+        }
+        
     }
 }

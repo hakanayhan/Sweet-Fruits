@@ -12,6 +12,7 @@ public class AutoplayWindow : MonoBehaviour
     [SerializeField] TextMeshProUGUI buttonText;
     [SerializeField] GameObject window;
     [SerializeField] Slider slider;
+    [SerializeField] GameObject bg;
     void Awake()
     {
         if (Instance != null)
@@ -25,18 +26,34 @@ public class AutoplayWindow : MonoBehaviour
     {
         SetAmount();
     }
-    public void OpenWindow()
+    public void OpenWindowButton()
     {
-        window.SetActive(!window.activeSelf);
+        if(!SessionController.Instance.bonusGame && !AutoplayController.Instance.autoSpin)
+        {
+            bg.SetActive(!window.activeSelf);
+            window.SetActive(!window.activeSelf);
+        }
         if (AutoplayController.Instance.autoSpin)
         {
-            AutoplayController.Instance.autoSpin = false;
+            AutoplayController.Instance.autoSpinAmount = 0;
             UIManager.Instance.autoplayText.text = "AUTOPLAY";
         }
     }
+    public void CloseWindowButton()
+    {
+        CloseWindow();
+    }
+
+    public void OpenWindow()
+    {
+        bg.SetActive(true);
+        window.SetActive(true);
+    }
+
     public void CloseWindow()
     {
-        window.SetActive(!window.activeSelf);
+        bg.SetActive(false);
+        window.SetActive(false);
     }
 
     public void SetAmount()
