@@ -46,9 +46,12 @@ public class FruitController : MonoBehaviour
     {
         multiplierList = GameController.Instance.multiplierList;
         int lastIndex = multiplierList.Count - 1;
+        int chanceToReturn = 1;
         for (int i = 0; i <= lastIndex; i++)
         {
-            if (UnityEngine.Random.Range(0, 20) <= 4 || i == lastIndex)
+            chanceToReturn = (i == 2) ? 2 : (i == 4) ? 3 : (i == 8) ? 5 : (i == 10) ? 8 : chanceToReturn;
+
+            if (UnityEngine.Random.Range(1, 11) <= chanceToReturn || i == lastIndex)
                 return multiplierList[i];
         }
         return 2;
