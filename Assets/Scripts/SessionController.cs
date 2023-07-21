@@ -19,6 +19,7 @@ public class SessionController : MonoBehaviour
     public double bonusPayment;
 
     public bool doubleChance;
+    public bool bonusBuyFeature = false;
 
     private double _sessionPayment;
     public double sessionPayment
@@ -54,7 +55,7 @@ public class SessionController : MonoBehaviour
         Instance = this;
     }
 
-    public void StartNewSession(bool buyBonusFeature = false)
+    public void StartNewSession()
     {
         fruitAmount = 0;
         sessionPayment = 0;
@@ -64,7 +65,7 @@ public class SessionController : MonoBehaviour
         FruitSpawner.Instance.spawnOrder.Clear();
         GenerateSpawnOrders();
 
-        if (buyBonusFeature)
+        if (bonusBuyFeature)
             AddCandies();
 
         for (int i = 0; fruitAmount < maxFruitAmount; fruitAmount++)
@@ -78,6 +79,9 @@ public class SessionController : MonoBehaviour
 
     public void FinishSession()
     {
+        if (bonusBuyFeature)
+            bonusBuyFeature = false;
+
         if (bonusGame)
         {
             int sessionMultiplier = 0;
@@ -219,23 +223,14 @@ public class SessionController : MonoBehaviour
 
     void AddCandies()
     {
-        int i = 0;
-        foreach (Columns column in columns)
-        {
-            for (int k = 0; k < 5; k++)
-            {
-                if (column.spawnOrder[k].name == fruitSettings[9].name)
-                    i++;
-            }
-        }
-        for (int j = i; j < 4;)
+        for (int i = 0; i < 4;)
         {
             int randomColumn = UnityEngine.Random.Range(0, columns.Count);
             int randomLine = UnityEngine.Random.Range(0, 5);
             if (columns[randomColumn].spawnOrder[randomLine].name != fruitSettings[9].name)
             {
                 columns[randomColumn].spawnOrder[randomLine] = fruitSettings[9];
-                j++;
+                i++;
             }
         }
     }
@@ -248,7 +243,8 @@ public class SessionController : MonoBehaviour
 
         foreach (FruitSettings fruitSetting in fruitSettings)
         {
-            cumulativeSpawnRate += (bonusGame) ? fruitSetting.bonusSpawnRate : fruitSetting.spawnRate;
+            if(!(bonusBuyFeature && fruitSetting.bonus))
+                cumulativeSpawnRate += (bonusGame) ? fruitSetting.bonusSpawnRate : fruitSetting.spawnRate;
 
             if (doubleChance && !bonusGame && fruitSetting.name == fruitSettings[9].name)
                 cumulativeSpawnRate += DoubleChanceController.Instance.doubleChanceEffect;

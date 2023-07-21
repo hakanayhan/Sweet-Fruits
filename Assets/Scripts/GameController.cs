@@ -100,7 +100,8 @@ public class GameController : MonoBehaviour
                 bottomObject.SetActive(false);
                 onGame = true;
                 readyToSpawn = false;
-                SessionController.Instance.StartNewSession(true);
+                SessionController.Instance.bonusBuyFeature = true;
+                SessionController.Instance.StartNewSession();
                 UIManager.Instance.ActivateGoodLuckText();
             }
         }
