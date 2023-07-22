@@ -10,6 +10,7 @@ public class FruitSpawner : MonoBehaviour
     private float _spawnOffset = -2f;
     private float _nextSpawnTime;
     [SerializeField] private float _spawnDelay;
+    [SerializeField] private float _spawnOffsetDistance;
     void Awake()
     {
         if (Instance != null)
@@ -27,7 +28,7 @@ public class FruitSpawner : MonoBehaviour
             SpawnNewFruit(spawnOrder[0]);
             spawnOrder.RemoveAt(0);
             SetDelayTime();
-            _spawnOffset += 0.5f;
+            _spawnOffset += _spawnOffsetDistance;
         }
         if (spawnOrder.Count == 0 && GameController.Instance.IsEveryFruitOnReel())
             _spawnOffset = -2f;
