@@ -10053,7 +10053,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnOrder: 
   prefab: {fileID: 6144570472924462577, guid: 858ccfa7841a4d646a34cec8b81716f8, type: 3}
-  _spawnDelay: 0.001
+  _spawnDelay: 0
+  _spawnOffsetDistance: 0.35
 --- !u!114 &1559540401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10105,6 +10106,7 @@ MonoBehaviour:
   bonusSpinCount: 0
   bonusPayment: 0
   doubleChance: 0
+  bonusBuyFeature: 0
 --- !u!114 &1559540402
 MonoBehaviour:
   m_ObjectHideFlags: 0
