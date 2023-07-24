@@ -13,6 +13,7 @@ public class AutoplayWindow : MonoBehaviour
     [SerializeField] GameObject window;
     [SerializeField] Slider slider;
     [SerializeField] GameObject bg;
+    [SerializeField] List<Toggle> toggles = new List<Toggle>();
     void Awake()
     {
         if (Instance != null)
@@ -67,5 +68,22 @@ public class AutoplayWindow : MonoBehaviour
     {
         AutoplayController.Instance.ActivateAutoSpin(amount);
         CloseWindow();
+    }
+
+    public void CheckToggles(int i)
+    {
+        if (toggles[i].isOn)
+        {
+            foreach(Toggle toggle in toggles)
+            {
+                if(toggle != toggles[i])
+                    toggle.isOn = false;
+            }
+            toggles[i].graphic.gameObject.SetActive(true);
+        }
+        else
+        {
+            toggles[i].graphic.gameObject.SetActive(false);
+        }
     }
 }
