@@ -80,10 +80,12 @@ public class AutoplayWindow : MonoBehaviour
                     toggle.isOn = false;
             }
             toggles[i].graphic.gameObject.SetActive(true);
+            SpinController.Instance.SetSpinSpeed(i);
         }
         else
         {
             toggles[i].graphic.gameObject.SetActive(false);
+            SpinController.Instance.SetSpinSpeed(-1);
         }
     }
 }

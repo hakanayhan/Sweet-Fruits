@@ -10789,6 +10789,7 @@ GameObject:
   - component: {fileID: 1559540401}
   - component: {fileID: 1559540400}
   - component: {fileID: 1559540399}
+  - component: {fileID: 1559540403}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -10909,7 +10910,7 @@ MonoBehaviour:
   spawnOrder: 
   prefab: {fileID: 6144570472924462577, guid: 858ccfa7841a4d646a34cec8b81716f8, type: 3}
   _spawnDelay: 0
-  _spawnOffsetDistance: 0.35
+  _spawnOffsetDistance: 0.5
 --- !u!114 &1559540401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11010,6 +11011,21 @@ MonoBehaviour:
   bet: 10
   readyToSpawn: 0
   multiplierList: 020000000300000004000000050000000600000007000000080000000a0000000f00000014000000190000003200000064000000
+--- !u!114 &1559540403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559540396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fa5ec659e66aac4495fa0e54b5d8473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalGravityScale: 5.5
+  turboGravityScale: 15
+  fastGravityScale: 9
 --- !u!1 &1565447765 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6144570472924462577, guid: 858ccfa7841a4d646a34cec8b81716f8, type: 3}
