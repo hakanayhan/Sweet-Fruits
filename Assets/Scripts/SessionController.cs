@@ -147,6 +147,7 @@ public class SessionController : MonoBehaviour
             bonusPayment = 0;
             UIManager.Instance.tumbleGameObject.SetActive(false);
             AutoplayController.Instance.CheckAutoSpin();
+            SpinController.Instance.SetSpinSpeed(AutoplayWindow.Instance.selectedToggle);
             UIManager.Instance.RefreshButtons();
         }
         if (bonusGame)
@@ -277,6 +278,7 @@ public class SessionController : MonoBehaviour
             activateBonusGame = false;
             bonusGame = true;
             bonusSpinCount = 10;
+            SpinController.Instance.SetSpinSpeed(-1);
             GameController.Instance.BonusSpin();
         }
     }

@@ -14,6 +14,7 @@ public class AutoplayWindow : MonoBehaviour
     [SerializeField] Slider slider;
     [SerializeField] GameObject bg;
     [SerializeField] List<Toggle> toggles = new List<Toggle>();
+    public int selectedToggle = -1;
     void Awake()
     {
         if (Instance != null)
@@ -72,6 +73,7 @@ public class AutoplayWindow : MonoBehaviour
 
     public void CheckToggles(int i)
     {
+        selectedToggle = i;
         if (toggles[i].isOn)
         {
             foreach(Toggle toggle in toggles)
