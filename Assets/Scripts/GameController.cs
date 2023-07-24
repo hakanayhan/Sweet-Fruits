@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour
         Instance = this;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (fruits.Count == 0)
         {

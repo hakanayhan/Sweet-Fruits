@@ -11,7 +11,7 @@ public class FruitController : MonoBehaviour
     [HideInInspector] public int multiplier;
     List<int> multiplierList;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if(gameObject.activeSelf && transform.position.y < -6)
         {
