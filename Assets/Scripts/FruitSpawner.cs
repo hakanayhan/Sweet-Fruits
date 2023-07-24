@@ -7,10 +7,6 @@ public class FruitSpawner : MonoBehaviour
     public static FruitSpawner Instance;
     public List<int> spawnOrder = new List<int>();
     public GameObject prefab;
-    private float _spawnOffset = -2f;
-    private float _nextSpawnTime;
-    [SerializeField] private float _spawnDelay;
-    [SerializeField] private float _spawnOffsetDistance;
     void Awake()
     {
         if (Instance != null)
@@ -21,17 +17,37 @@ public class FruitSpawner : MonoBehaviour
         Instance = this;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (GameController.Instance.readyToSpawn && spawnOrder.Count > 0 && Time.time > _nextSpawnTime)
+        if (GameController.Instance.readyToSpawn && spawnOrder.Count > 0)
         {
-            SpawnNewFruit(spawnOrder[0]);
-            spawnOrder.RemoveAt(0);
-            SetDelayTime();
-            _spawnOffset += _spawnOffsetDistance;
+            SpawnOrders();
         }
-        if (spawnOrder.Count == 0 && GameController.Instance.IsEveryFruitOnReel())
-            _spawnOffset = -2f;
+    }
+
+    void SpawnOrders()
+    {
+        for (int i = 0; i < spawnOrder.Count; i++)
+        {
+            int order = spawnOrder[i];
+            if (IsFruitNotInSpawnArea(order))
+            {
+                SpawnNewFruit(order);
+                spawnOrder.RemoveAt(i);
+            }
+        }
+    }
+
+    bool IsFruitNotInSpawnArea(int i)
+    {
+        foreach (var fruit in GameController.Instance.fruits)
+        {
+            if (fruit.GetComponent<FruitController>().currentColumn == i && fruit.transform.position.y > SessionController.Instance.columns[0].columnTransform.position.y - 2.31)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void SpawnNewFruit(int a)
@@ -39,8 +55,9 @@ public class FruitSpawner : MonoBehaviour
         FruitSettings settings = SessionController.Instance.columns[a].spawnOrder[0];
         GameObject g = SessionController.Instance.columns[a].availableFruits[0];
         SessionController.Instance.columns[a].availableFruits.RemoveAt(0);
+        g.GetComponent<FruitController>().currentColumn = a;
         g.transform.position = SessionController.Instance.columns[a].columnTransform.position;
-        g.transform.position += new Vector3(-1f, _spawnOffset, 0f);
+        g.transform.position += new Vector3(-1f, -2.3f, 0f);
         g.GetComponent<FruitController>().SetFruitSettings(settings);
         g.SetActive(true);
         GameController.Instance.fruits.Add(g);
@@ -48,11 +65,6 @@ public class FruitSpawner : MonoBehaviour
 
         if (settings.name == SessionController.Instance.fruitSettings[10].name)
             g.GetComponent<FruitController>().SetMultiplier();
-    }
-
-    void SetDelayTime()
-    {
-        _nextSpawnTime = Time.time + _spawnDelay;
     }
 
     public void CreateSpawnOrder(int column)
