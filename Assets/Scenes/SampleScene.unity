@@ -5572,6 +5572,7 @@ MonoBehaviour:
   toggles:
   - {fileID: 444033845}
   - {fileID: 305567427}
+  selectedToggle: -1
 --- !u!224 &661023827
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10909,8 +10910,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnOrder: 
   prefab: {fileID: 6144570472924462577, guid: 858ccfa7841a4d646a34cec8b81716f8, type: 3}
-  _spawnDelay: 0
-  _spawnOffsetDistance: 0.5
 --- !u!114 &1559540401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11023,9 +11022,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa5ec659e66aac4495fa0e54b5d8473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalGravityScale: 5.5
-  turboGravityScale: 15
-  fastGravityScale: 9
+  normalGravityScale: 6
+  turboGravityScale: 17
+  fastGravityScale: 10
 --- !u!1 &1565447765 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6144570472924462577, guid: 858ccfa7841a4d646a34cec8b81716f8, type: 3}
