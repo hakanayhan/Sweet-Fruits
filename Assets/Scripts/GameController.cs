@@ -73,6 +73,7 @@ public class GameController : MonoBehaviour
             }
             else if (AutoplayController.Instance.autoSpin)
             {
+                AutoplayController.Instance.autoSpin = false;
                 AutoplayWindow.Instance.OpenWindow();
             }
         }
