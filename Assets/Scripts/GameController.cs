@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     
     public bool onGame = true;
     [SerializeField] GameObject bottomObject;
+    bool destroyBottom;
 
     public double bet;
 
@@ -39,6 +40,20 @@ public class GameController : MonoBehaviour
 
         if (onGame && IsEveryFruitOnReel())
             CheckMatchingFruits();
+
+        if (destroyBottom)
+        {
+            if(bottomObject.transform.position.x >= 18)
+            {
+                destroyBottom = false;
+                bottomObject.SetActive(false);
+                bottomObject.transform.position -= new Vector3(15, 0, 0);
+            }
+            else
+            {
+                bottomObject.transform.position += new Vector3(1, 0, 0);
+            }
+        }
     }
 
     public bool IsEveryFruitOnReel()
@@ -65,7 +80,7 @@ public class GameController : MonoBehaviour
             bet = Wallet.Instance.bet;
             if (Wallet.Instance.TryRemoveMoney(bet))
             {
-                bottomObject.SetActive(false);
+                DestroyBottomObject();
                 onGame = true;
                 readyToSpawn = false;
                 SessionController.Instance.StartNewSession();
@@ -82,7 +97,7 @@ public class GameController : MonoBehaviour
     public void BonusSpin()
     {
         UIManager.Instance.tumbleGameObject.SetActive(false);
-        bottomObject.SetActive(false);
+        DestroyBottomObject();
         SessionController.Instance.bonusSpinCount--;
         UIManager.Instance.SetBonusLeftText("FREE SPINS LEFT " + SessionController.Instance.bonusSpinCount);
         onGame = true;
@@ -98,7 +113,7 @@ public class GameController : MonoBehaviour
             double buyCost = Wallet.Instance.GetBonusBuyCost();
             if (Wallet.Instance.TryRemoveMoney(buyCost))
             {
-                bottomObject.SetActive(false);
+                DestroyBottomObject();
                 onGame = true;
                 readyToSpawn = false;
                 SessionController.Instance.bonusBuyFeature = true;
@@ -226,5 +241,9 @@ public class GameController : MonoBehaviour
             FruitSpawner.Instance.CreateSpawnOrder(currentColumn);
             SessionController.Instance.GenerateSpawnOrder(SessionController.Instance.columns[currentColumn]);
         }
+    }
+    void DestroyBottomObject()
+    {
+        destroyBottom = true;
     }
 }
