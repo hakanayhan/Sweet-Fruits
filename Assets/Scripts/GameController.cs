@@ -49,6 +49,7 @@ public class GameController : MonoBehaviour
         {
             if(bottomObject.transform.position.x >= 18)
             {
+                isGameStarted = false;
                 destroyBottom = false;
                 bottomObject.SetActive(false);
                 bottomObject.transform.position -= new Vector3(15, 0, 0);
