@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     public double bet;
 
     public bool readyToSpawn;
+    public bool isGameStarted;
 
     int bonusAmount = 0;
     
@@ -39,7 +40,10 @@ public class GameController : MonoBehaviour
         }
 
         if (onGame && IsEveryFruitOnReel())
+        {
             CheckMatchingFruits();
+            isGameStarted = true;
+        }
 
         if (destroyBottom)
         {
@@ -82,6 +86,7 @@ public class GameController : MonoBehaviour
             {
                 DestroyBottomObject();
                 onGame = true;
+                isGameStarted = false;
                 readyToSpawn = false;
                 SessionController.Instance.StartNewSession();
                 UIManager.Instance.ActivateGoodLuckText();
@@ -101,6 +106,7 @@ public class GameController : MonoBehaviour
         SessionController.Instance.bonusSpinCount--;
         UIManager.Instance.SetBonusLeftText("FREE SPINS LEFT " + SessionController.Instance.bonusSpinCount);
         onGame = true;
+        isGameStarted = false;
         readyToSpawn = false;
         SessionController.Instance.StartNewSession();
     }
@@ -115,6 +121,7 @@ public class GameController : MonoBehaviour
             {
                 DestroyBottomObject();
                 onGame = true;
+                isGameStarted = false;
                 readyToSpawn = false;
                 SessionController.Instance.bonusBuyFeature = true;
                 SessionController.Instance.StartNewSession();
@@ -238,8 +245,8 @@ public class GameController : MonoBehaviour
         {
             int currentColumn = fruit.GetComponent<FruitController>().currentColumn;
             fruit.GetComponent<FruitController>().Deactive();
-            FruitSpawner.Instance.CreateSpawnOrder(currentColumn);
             SessionController.Instance.GenerateSpawnOrder(SessionController.Instance.columns[currentColumn]);
+            FruitSpawner.Instance.CreateSpawnOrder(currentColumn);
         }
     }
     void DestroyBottomObject()
