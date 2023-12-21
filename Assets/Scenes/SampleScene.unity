@@ -11075,6 +11075,7 @@ MonoBehaviour:
   bottomObject: {fileID: 174245656}
   bet: 10
   readyToSpawn: 0
+  isGameStarted: 0
   multiplierList: 020000000300000004000000050000000600000007000000080000000a0000000f00000014000000190000003200000064000000
 --- !u!114 &1559540403
 MonoBehaviour:
@@ -11089,7 +11090,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalGravityScale: 8
-  turboGravityScale: 17
+  turboGravityScale: 16
   fastGravityScale: 12
 --- !u!1 &1565447765 stripped
 GameObject:
